@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;1,9..40,800&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header page */
+
+.navlink li{
+  display: flex;
+
+}
+
+li span{
+  align-items: center;
+  margin-top: 5px;
+  margin-left: 8px;
+}
+
+/* HomeSlider page */
+
+.HomeSlider--button:hover{
+  opacity: 80%;
+}
+
+/* Popular page */
+
+.Popularitems--quickbag{
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {transform: translate(0%, 80%);}
+  100% {transform: translate(0%, 0%);}
+}
+
+
+
+
+
