@@ -1,13 +1,12 @@
 import "./App.css";
-import Home from "./pages/Home"
-import Popular from "./pages/Popular";
+import Home from "./pages/Home";
+
 
 const App = () => {
-
   return (
     <>
-      <Home/>
-      <Popular/>
+      <Home />
+      
     </>
   );
 };

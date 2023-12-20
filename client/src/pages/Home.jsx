@@ -1,15 +1,20 @@
-import BackImages from "../data/BackImages"
-import HomeSlider from "../components/HomeSlider";
+
 import Header from "../components/Header";
+import Popular from "../components/PopularSection/Popular";
+import OtherProducts from "../components/OurProductsSection/OurProducts";
+import Slogan from "../components/Slogan";
+import Footer from "../components/Footer";
 
 const Home = () => {
-    let info = BackImages.map((items) => {
-        return (<HomeSlider key = {items.id} item = {items} />)
-    })
+
   return (
     <div className="">
-      
-      <section className="">{info} <section className=""><Header/></section> </section>
+      <section><Header/></section>
+     
+      <Popular />
+      <OtherProducts/>
+      <Slogan/>
+      <Footer/>
     </div>
   )
 }

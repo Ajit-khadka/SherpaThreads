@@ -28,9 +28,9 @@ li span{
   opacity: 80%;
 }
 
-/* Popular page */
+/* PopularItems page */
 
-.Popularitems--quickbag{
+.Popularitems--quickBagIntro{
   animation-name: fadeIn;
   animation-duration: 0.3s;
   cursor: pointer;
@@ -40,6 +40,74 @@ li span{
   0% {transform: translate(0%, 80%);}
   100% {transform: translate(0%, 0%);}
 }
+
+.Popularitems--quickBagExit{
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {transform: translate(0%, 80%);}
+  100% {transform: translate(0%, 0%);}
+}
+
+
+.PopularItems--Imagefade:hover{
+  animation-name: opacityChange;
+  animation-duration: 0.3s;
+
+}
+
+@keyframes opacityChange {
+  0% {opacity: 10%;}
+  50% {opacity: 50%;}
+  100% {opacity: 100%;}
+}
+
+/* popular page */
+
+
+/* ourItems */
+
+.OurItems--Products{
+  transition: 0.5s;
+}
+
+.OurItems--Products:hover{
+  transform: scale(1.1);
+}
+
+.OutItems--IconIntro{
+  animation-name: IconIntro;
+  animation-duration: 0.2s;
+}
+
+@keyframes IconIntro {
+  0%{transform: translate(-40%, 0%);
+    opacity: 0;}
+  100%{transform: translate(0%, 0%);}
+}
+
+.OutItems--IconExit{
+  animation-name: IconExit;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes IconExit {
+  0%{transform: translate(0%, 0%);}
+  100%{transform: translate(-40%, 0%);
+  opacity: 0;}
+}
+
+/* Popular page */
+
+.Popular--ScrollSection::-webkit-scrollbar{
+  display: none;
+}
+
 
 
 
