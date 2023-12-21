@@ -13,7 +13,7 @@ const OurProducts = () => {
       <div className="uppercase text-3xl italic font-extrabold font-Sans px-16 mb-12">
         Our Products
       </div>
-      <section className="flex space-x-5 overflow-x-scroll pl-16 pr-16 ">
+      <section className="flex space-x-5 pl-16 pr-16 ">
         {products}
       </section>
     </div>

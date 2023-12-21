@@ -9,7 +9,8 @@ export default {
       fontFamily:{
         Sans:['Open Sans', 'sans-serif'],
         Roboto:['Roboto Mono', 'monospace'],
-        Inter:['Inter', 'sans-serif']  
+        Inter:['Inter', 'sans-serif'],
+        Nunito:['Nunito', 'sans-serif']
       }
     },
   },

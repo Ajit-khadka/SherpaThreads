@@ -10,7 +10,7 @@ const Popular = () => {
   });
 
   return (
-    <div className=" my-12 border-2 border-red-500 ">
+    <div className=" my-12 ">
       <div className="uppercase text-3xl italic font-extrabold font-Sans px-16">
         Popular Now
       </div>
