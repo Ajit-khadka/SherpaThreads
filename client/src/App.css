@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;1,9..40,800&family=Roboto+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 *{
   margin: 0;
@@ -13,8 +14,28 @@
 
 .navlink li{
   display: flex;
-
 }
+
+.Header--AnimateIntro{
+  animation-name: AnimateIntro;
+  animation-duration: 0.3s;
+  }
+
+@keyframes AnimateIntro {
+  0%{transform:translate(0%, -50%)}
+  100%{transform:translate(0%, 0%)}
+}  
+
+.Header--AnimateExit{
+  animation-name: AnimateExit;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  }
+
+@keyframes AnimateExit {
+  0%{transform:translate(0%, 0%)}
+  100%{transform:translate(0%, 0%);}
+} 
 
 li span{
   align-items: center;
@@ -25,41 +46,49 @@ li span{
 /* HomeSlider page */
 
 .HomeSlider--button:hover{
-  opacity: 80%;
+  opacity: 95%;
+  transition: 0.3s;
 }
 
 /* PopularItems page */
 
 .Popularitems--quickBagIntro{
   animation-name: fadeIn;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   cursor: pointer;
 }
 
+.Popularitems--quickBagIntro:hover{
+  opacity: 80%;
+}
+
 @keyframes fadeIn {
-  0% {transform: translate(0%, 80%);}
+  0% {transform: translate(0%, 80%);
+    opacity: 0%;}
   100% {transform: translate(0%, 0%);}
 }
 
 .Popularitems--quickBagExit{
-  animation-name: fadeIn;
-  animation-duration: 0.3s;
+  animation-name: fadeOut;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
   cursor: pointer;
 }
 
-@keyframes fadeIn {
-  0% {transform: translate(0%, 80%);}
-  100% {transform: translate(0%, 0%);}
+@keyframes fadeOut {
+  0% {transform: translate(0%, 0%);}
+  100% {transform: translate(0%, 80%);
+    opacity: 0%;}
 }
 
 
-.PopularItems--Imagefade:hover{
-  animation-name: opacityChange;
+.PopularItems--ImagefadeIntro {
+  animation-name: opacityChangeIntro;
   animation-duration: 0.3s;
-
 }
 
-@keyframes opacityChange {
+@keyframes opacityChangeIntro {
   0% {opacity: 10%;}
   50% {opacity: 50%;}
   100% {opacity: 100%;}
@@ -108,6 +137,24 @@ li span{
   display: none;
 }
 
+/* Footer page */
+
+.Footer--items li{
+  cursor: pointer;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.Footer--items li:hover{
+  text-decoration: black;
+  opacity: 0.9;
+}
+
+.Footer--GiveawayEnter:hover{
+  background-color: black;
+  color: white;
+  transition: ease-in-out 0.4s;
+}
 
 
 

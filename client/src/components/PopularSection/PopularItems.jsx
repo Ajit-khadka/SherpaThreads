@@ -12,7 +12,7 @@ const PopularItems = (props) => {
   const onImageHandler = () => {
     if (props.items.backImg == "empty") {
       setFrontImage(true);
-      setBackImage(false);
+      setBackImage(!frontImage);
     } else {
       setFrontImage(false);
       setBackImage(!frontImage);
@@ -31,14 +31,13 @@ const PopularItems = (props) => {
   };
 
   const mouseOutHandler = () => {
-    setTimeout(setQuickBag(false), 0);
     setQuickBagAnime(false);
   };
 
   return (
     <div className="">
       <div
-        className="h-[480px] w-[302px]  overflow-hidden mt-12 cursor-pointer border-2 border-blue-500"
+        className="h-[480px] w-[302px]  overflow-hidden mt-12 cursor-pointer"
         onMouseOver={mouseOverHandler}
         onMouseOut={mouseOutHandler}
       >
@@ -56,7 +55,7 @@ const PopularItems = (props) => {
           )}
           {backImage && (
             <img
-              className="PopularItems--Imagefade max-w-[100%] max-h-[100%] object-cover"
+              className={` ${ backImage && ("PopularItems--ImagefadeIntro")}  max-w-[100%] max-h-[100%] object-cover `}
               src={`/images/${props.items.backImg}`}
               alt="products"
             />
@@ -65,7 +64,7 @@ const PopularItems = (props) => {
             <GrFavorite className="cursor-pointer" />
           </div>
           {quickBag && (
-            <div className="Popularitems--quickBagIntro py-4 px-1 w-[110px] bg-purple-500 font-Sans font-semibold flex items-center justify-center text-[12px] rounded-2xl text-white bottom-4 right-4 absolute">
+            <div className={`${quickBagAnime ? "Popularitems--quickBagIntro" : "Popularitems--quickBagExit"} Popularitems--quickBagIntro py-4 px-1 w-[110px] bg-purple-500 font-Sans font-semibold flex items-center justify-center text-[12px] rounded-2xl text-white bottom-4 right-4 absolute`}>
               + Quick Bag
             </div>
           )}

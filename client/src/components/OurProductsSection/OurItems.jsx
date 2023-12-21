@@ -13,14 +13,13 @@ const OurItems = (props) => {
   };
 
   let OutIconHandler = () => {
-    setTimeout(setIconAnimate(false), 0);
     setIconAnimate(false);
   };
 
   return (
     <div className="h-[450px] w-[450px] overflow-hidden rounded-md">
       <div
-        className=" OurItems--Products  border-2 border-green-500 relative cursor-pointer"
+        className=" OurItems--Products  relative cursor-pointer"
         onMouseOver={onIconHandler}
         onMouseOut={OutIconHandler}
       >
@@ -28,7 +27,7 @@ const OurItems = (props) => {
           className="h-[450px] w-[450px] object-cover rounded-md "
           src={`/images/${props.items.ourProductImg}`}
         />
-        <div className=" absolute bottom-12 left-10 flex font-Inter font-extrabold text-xl uppercase italic text-white items-center border-2 border-red-500 ">
+        <div className=" absolute bottom-12 left-10 flex font-Inter font-extrabold text-xl uppercase italic text-white items-center  ">
           {props.items.type}{" "}
           {popupIcon && (
             <span
