@@ -38,8 +38,12 @@ const Login = (props) => {
             className="border-[1px] border-black mt-5 border-opacity-40 rounded-md w-[100%] py-3 px-3"
             placeholder="E-mail"
           ></input>
-          <div className="uppercase py-3 text-center w-[100%] font-bold text-[12px] bg-black text-white rounded-md font-Inter mt-3 tracking-widest cursor-pointer">Get Login Code</div>
-          <div className="text-center font-Inter font-bold my-3 opacity-60">OR</div>
+          <div className="uppercase py-3 text-center w-[100%] font-bold text-[12px] bg-black text-white rounded-md font-Inter mt-3 tracking-widest cursor-pointer">
+            Get Login Code
+          </div>
+          <div className="text-center font-Inter font-bold my-3 opacity-60">
+            OR
+          </div>
           <div className="flex items-center justify-center uppercase py-3  w-[100%] font-bold text-[12px] bg-white text-black rounded-md font-Inter mt-3 tracking-widest border-[1px] border-black border-opacity-20 opacity-80 cursor-pointer">
             <FcGoogle className="mr-2 text-xl" /> Sign in with google
           </div>
@@ -49,7 +53,7 @@ const Login = (props) => {
             <span className="underline cursor-pointer">terms of service</span>
           </div>
         </form>
-        <LoginBag/>
+        <LoginBag />
         <div></div>
       </div>
     </div>
@@ -57,7 +61,7 @@ const Login = (props) => {
 };
 
 Login.propTypes = {
-  close: PropTypes.bool,
+  close: PropTypes.func,
   open: PropTypes.bool,
 };
 

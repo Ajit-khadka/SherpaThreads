@@ -9,13 +9,14 @@ import Login from "./Login/Login";
 
 const Header = () => {
   const [openLoginPop, setOpenLoginPop] = useState(false)
+  const [headerColor, setHeaderColor] = useState(false);
 
   //Mapping data from BackImages.js
   let info = BackImages.map((items) => {
     return <HomeSlider key={items.id} item={items} />;
   });
-  const [headerColor, setHeaderColor] = useState(false);
 
+  
   //Header color change on scroll
   let headerBgHandler = () => {
     if (window.scrollY >= 500) {
