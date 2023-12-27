@@ -22,11 +22,11 @@
   }
 
 @keyframes AnimateIntro {
-  0%{transform:translate(0%, -50%)}
+  0%{transform:translate(0%, -100%)}
   100%{transform:translate(0%, 0%)}
 }  
 
-.Header--AnimateExit{
+/* .Header--AnimateExit{
   animation-name: AnimateExit;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
@@ -34,8 +34,8 @@
 
 @keyframes AnimateExit {
   0%{transform:translate(0%, 0%)}
-  100%{transform:translate(0%, 0%);}
-} 
+  100%{transform:translate(0%, -50%);}
+}  */
 
 li span{
   align-items: center;
