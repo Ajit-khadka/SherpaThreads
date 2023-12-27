@@ -10,6 +10,4 @@ router.use(
         methods:"GET,POST,PUT,DELETE"
     }))
 
-router.get('/', test);
-
 module.exports = router
