@@ -82,7 +82,7 @@ passport.use(
     failureRedirect:"http://localhost:5173/err"
  }))
 
- app.get("/", async(req,res) => {
+ app.get("/login", async(req,res) => {
     console.log("req", req.user)
 
     if(req.user){

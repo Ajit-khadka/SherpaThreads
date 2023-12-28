@@ -1,51 +1,24 @@
 import { IoCloseSharp } from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Profile from "../Profile/Profile";
 import Favorites from "../Profile/Favorites";
 
 const Login = (props) => {
-  const loginwithGoogle = () => {
-    window.open("http://localhost:8000/auth/google/callback", "_self");
-  };
-
-  const [userData, setUserData] = useState({});
-  // console.log("userdata", userData);
-
-  const getUser = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/", {
-        withCredentials: true,
-      });
-      // console.log("response", res);
-      setUserData(res.data.user);
-    } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        return console.log("No user logged");
-      }
-      return console.log("Axios Error:", err);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
   //returning null to Header
+  // console.log(props.userData);
   if (props.open === false) return null;
 
   return (
     <div
-      className="h-[100%] w-[100%] fixed bg-transparent z-20 top-0 left-0 "
+      className="h-[100%] w-[100%] fixed bg-black bg-opacity-40 z-20 top-0 left-0 "
       onClick={props.close}
     >
       <div className="h-[92vh] w-[400px] bg-white rounded-xl absolute top-7 left-5 px-5 py-3">
         <div className="w-[100%] flex justify-between items-center">
           <div className="text-xl font-inter font-bold">
             {" "}
-            {Object.keys(userData).length > 0 ? "Profile" : "Welcome"}
+            {Object.keys(props.userData).length > 0 ? "Profile" : "Welcome"}
           </div>
           <div>
             <IoCloseSharp
@@ -54,8 +27,8 @@ const Login = (props) => {
             />
           </div>
         </div>
-        {Object?.keys(userData)?.length > 0 ? (
-          <Profile userData={userData} />
+        {Object?.keys(props.userData)?.length > 0 ? (
+          <Profile userData={props.userData} />
         ) : (
           <div>
             <div className="text-xl font-Inter font-bold mt-6">
@@ -74,7 +47,7 @@ const Login = (props) => {
                 OR
               </div>
               <div
-                onClick={loginwithGoogle}
+                onClick={props.googleLogin}
                 className="flex items-center justify-center uppercase py-3  w-[100%] font-bold text-[12px] bg-white text-black rounded-md font-Inter mt-3 tracking-widest border-[1px] border-black border-opacity-20 opacity-80 cursor-pointer"
               >
                 <FcGoogle className="mr-2 text-xl" /> Sign in with google
@@ -99,6 +72,8 @@ const Login = (props) => {
 Login.propTypes = {
   close: PropTypes.func,
   open: PropTypes.bool,
+  userData: PropTypes.object,
+  googleLogin: PropTypes.func,
 };
 
 export default Login;
