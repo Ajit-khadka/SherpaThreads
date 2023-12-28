@@ -15,7 +15,7 @@ const HeaderExtra = (props) => {
           props.open
             ? "Header--AnimateIntro fixed"
             : "Header--AnimateExit absolute"
-        } h-[300px] border-t-[1px]  top-[95px] left-0 w-[100%] z-0 bg-white`}
+        } h-[300px] border-t-[1px]  top-[95px] left-0 w-[100%] z-0 bg-white `}
       ></div>
     </div>
   );

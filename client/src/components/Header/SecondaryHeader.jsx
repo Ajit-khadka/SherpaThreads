@@ -2,47 +2,24 @@ import { IoIosArrowDown } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { GrFavorite } from "react-icons/gr";
 import { IoBagHandleOutline } from "react-icons/io5";
-// import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Login from "../Login/Login";
 import HeaderExtra from "./HeaderExtra";
 import axios from "axios";
 import QuickBag from "../QuickBag/QuickBag";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [userData, setUserData] = useState({});
   const [openLoginPop, setOpenLoginPop] = useState(false);
-  const [headerColor, setHeaderColor] = useState(false);
   const [navClick, setNavClick] = useState(false);
   const [quickBag, setQuickBag] = useState(false);
 
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   // Update the state based on the current URL
-  //   location.pathname !== "/" ? setHeaderColor(true) : setHeaderColor(false);
-  //   console.log(location.pathname);
-  // }, [location.pathname]);
+  let navigate = useNavigate();
 
   let toggleNavlink = () => {
     setNavClick(!navClick);
   };
-
-  //go to top
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
-
-  //Header color change on scroll
-  let headerBgHandler = () => {
-    if (window.scrollY >= 500) {
-      setHeaderColor(true);
-    } else {
-      setHeaderColor(false);
-    }
-  };
-
-  window.addEventListener("scroll", headerBgHandler);
 
   //open popup login modal
   let LoginmodalHandler = () => {
@@ -92,18 +69,15 @@ const Header = () => {
         close={() => setOpenLoginPop(false)}
       />
       <QuickBag open={quickBag} close={() => setQuickBag(false)} />
-
       <div
         className={` ${
-          headerColor || navClick
-            ? "Header--AnimateIntro fixed text-black bg-white "
-            : "absolute  text-white"
+          navClick && "Header--AnimateIntro text-black bg-white "
         }  flex justify-between item-center w-[100%] px-16 h-[13vh] top-0 left-0 z-10 `}
       >
         <nav className="flex items-center  space-x-16 ">
           <div
             className=" cursor-pointer font-Roboto italic text-[22px] font-bold"
-            onClick={() => scrollToTop()}
+            onClick={() => navigate("/")}
           >
             SherpaThreads
           </div>
@@ -141,10 +115,10 @@ const Header = () => {
           </ul>
         </nav>
         {navClick && (
-          <div>
+          <div className="">
             <HeaderExtra open={navClick} close={toggleNavlink} />
             <div
-              className="h-[400px] w-[100%] absolute bg-transparent top-[395px] left-0 text-red"
+              className="h-[400px] w-[100%] bg-black top-[395px] left-0 "
               onClick={toggleNavlink}
             ></div>
           </div>
@@ -157,6 +131,7 @@ const Header = () => {
             onClick={BagmodalHandler}
           />
         </div>
+       
       </div>
     </div>
   );

@@ -156,6 +156,15 @@ li span{
   transition: ease-in-out 0.4s;
 }
 
+/* ProductInfo page */
+
+.ProductInfo--description::-webkit-scrollbar{
+  display: none;
+}
+
+.ProductInfo--productAbout{
+  opacity: 0.8;
+}
 
 
 
