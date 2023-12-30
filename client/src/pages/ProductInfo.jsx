@@ -3,8 +3,24 @@ import { PiKeyReturnDuotone } from "react-icons/pi";
 import { IoLeafOutline } from "react-icons/io5";
 import { TbGift } from "react-icons/tb";
 import { GrDeliver } from "react-icons/gr";
+import { useState } from "react";
 
 const ProductInfo = () => {
+  const [userBuy, setUserBuy] = useState({
+    buyerGender: "",
+    productColour: "",
+    productSize: "",
+  });
+
+  let orderHandler = (objectName, objectValue) => {
+    setUserBuy((userBuy) => {
+      return {
+        ...userBuy,
+        [objectName]: objectValue,
+      };
+    });
+  };
+
   return (
     <div className="h-[100vh]">
       <SecondaryHeader />
@@ -22,42 +38,151 @@ const ProductInfo = () => {
           <div className="mt-2 text-xl opacity-80 font-Inter">Rs 5000</div>
           <div className=" border-t-[1px] my-4 w-[100%]"></div>
           <div>
-            <span className="opacity-70 ">Gender : </span>
+            <span className="">
+              <span className="opacity-70 ">Gender : </span>
+              {userBuy.buyerGender}
+            </span>
           </div>
-          <div className="flex space-x-2 mt-4 ">
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+          <div className="flex space-x-2 mt-4 ml-1">
+            <div
+              className={`${
+                userBuy.buyerGender === "Men"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
+              onClick={() => orderHandler("buyerGender", "Men")}
+            >
               Men&apos;s
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.buyerGender === "Women"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
+              onClick={() => orderHandler("buyerGender", "Women")}
+            >
               Women&apos;s
             </div>
           </div>
           <div className="mt-4">
             <span className="opacity-70 ">Colour :</span>{" "}
+            {userBuy.productColour}{" "}
+            <div className="flex space-x-2 mt-4 ml-1">
+              <div
+                className={`${
+                  userBuy.productColour === "Red" && "outline outline-2"
+                }  px-1 py-1  rounded-[50%]`}
+                onClick={() => orderHandler("productColour", "Red")}
+              >
+                <div className=" h-5 w-5 bg-red-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+              </div>
+              <div
+                className={`${
+                  userBuy.productColour === "Green" && "outline outline-2"
+                } px-1 py-1  rounded-[50%]`}
+                onClick={() => orderHandler("productColour", "Green")}
+              >
+                <div className=" h-5 w-5 bg-green-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+              </div>
+              <div
+                className={`${
+                  userBuy.productColour === "Blue" && "outline outline-2"
+                } px-1 py-1  rounded-[50%]`}
+                onClick={() => orderHandler("productColour", "Blue")}
+              >
+                <div className=" h-5 w-5 bg-blue-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+              </div>
+              <div
+                className={`${
+                  userBuy.productColour === "Orange" && "outline outline-2"
+                } px-1 py-1  rounded-[50%]`}
+                onClick={() => orderHandler("productColour", "Orange")}
+              >
+                <div className=" h-5 w-5 bg-orange-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+              </div>
+              <div
+                className={`${
+                  userBuy.productColour === "Purple" && "outline outline-2"
+                }  px-1 py-1  rounded-[50%]`}
+                onClick={() => orderHandler("productColour", "Purple")}
+              >
+                <div className=" h-5 w-5 bg-purple-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+              </div>
+            </div>
           </div>
           <div className="my-4">
-            <span className="opacity-70 ">Size : </span>{" "}
+            <span className="opacity-70 ">Size : </span> {userBuy.productSize}{" "}
           </div>
-          <div className="flex space-x-2">
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+          <div className="flex space-x-2 ml-1">
+            <div
+              className={`${
+                userBuy.productSize === "XS"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "XS")}
+            >
               XS
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "M"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "M")}
+            >
               M
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "L"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "L")}
+            >
               L
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "XL"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "XL")}
+            >
               XL
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "2XL"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "2XL")}
+            >
               2XL
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "3XL"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "3XL")}
+            >
               3XL
             </div>
-            <div className="border-[1px] border-black px-5 py-3 rounded-2xl border-opacity-20 cursor-pointer">
+            <div
+              className={`${
+                userBuy.productSize === "4XL"
+                  ? "outline outline-2 "
+                  : "outline outline-1 outline-gray-300"
+              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+              onClick={() => orderHandler("productSize", "4XL")}
+            >
               4XL
             </div>
           </div>
@@ -119,6 +244,7 @@ const ProductInfo = () => {
             </div>
           </div>
           <div className=" border-t-[1px] my-4 w-[100%]"></div>
+          {/* comments */}
           <div className="">
             <div className="font-Inter font-semibold mb-1">Comment</div>
             <div>No comments yet</div>
