@@ -166,7 +166,8 @@ li span{
   opacity: 0.8;
 }
 
-/* Scroll To top button */
+/* AccessoriesCollection page */
 
-
-
+.Collection--scrollhide::-webkit-scrollbar {
+  display: none;
+}

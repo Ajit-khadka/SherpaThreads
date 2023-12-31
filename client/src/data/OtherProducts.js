@@ -3,6 +3,7 @@ export default [
         id:1,
         type: 'Accessories',
         ourProductImg: 'accessories.jpg',
+        
     },
     {
         id:2,
