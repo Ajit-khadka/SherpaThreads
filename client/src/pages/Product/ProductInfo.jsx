@@ -1,4 +1,4 @@
-import SecondaryHeader from "../components/Header/SecondaryHeader";
+import SecondaryHeader from "../../components/Header/SecondaryHeader";
 import { PiKeyReturnDuotone } from "react-icons/pi";
 import { IoLeafOutline } from "react-icons/io5";
 import { TbGift } from "react-icons/tb";

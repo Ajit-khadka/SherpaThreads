@@ -42,7 +42,7 @@ const PopularItems = (props) => {
         onMouseOver={mouseOverHandler}
         onMouseOut={mouseOutHandler}
       >
-        <Link to={`Brands/BrandInfo`}>
+        <Link to={`/collection/ProductInfo`}>
           <div
             className="h-[400px] w-[300px] relative  rounded-md overflow-hidden"
             onMouseOver={onImageHandler}
