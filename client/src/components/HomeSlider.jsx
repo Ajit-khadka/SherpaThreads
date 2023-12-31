@@ -4,7 +4,7 @@ const HomeSlider = (props) => {
   return (
     <div className='z-0'>
       <div className="homeBackground relative h-[100vh] overflow-hidden flex flex-col  justify-center">
-        <img className="absolute" src={`/images/${props.item.backImage}`} alt='Landing page image'/>
+        <img className="absolute" src={`/images/landingBg/${props.item.backImage}`} alt='Landing page image'/>
         <div className='absolute ml-20  mt-10 space-y-6'>
         <p className=' text-white text-md font-Nunito  font-semibold'>{props.item.description}</p>
         <p className=" text-white text-5xl font-Sans italic font-extrabold uppercase">{props.item.title}</p>
