@@ -59,7 +59,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col  relative  z-10 ">
+    <div className=" flex flex-col sticky top-0 left-0 z-10 h-[13vh] bg-white">
       <Login
         open={openLoginPop}
         userData={userData}
@@ -118,7 +118,7 @@ const Header = () => {
           <div className="">
             <HeaderExtra open={navClick} close={toggleNavlink} />
             <div
-              className="h-[400px] w-[100%] bg-black top-[395px] left-0 "
+              className="h-[333px] w-[100%] absolute bg-transparent top-[395px] left-0 z-10 "
               onClick={toggleNavlink}
             ></div>
           </div>
@@ -131,7 +131,6 @@ const Header = () => {
             onClick={BagmodalHandler}
           />
         </div>
-       
       </div>
     </div>
   );

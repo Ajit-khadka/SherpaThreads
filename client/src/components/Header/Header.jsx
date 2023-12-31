@@ -144,7 +144,7 @@ const Header = () => {
           <div>
             <HeaderExtra open={navClick} close={toggleNavlink} />
             <div
-              className="h-[400px] w-[100%] absolute bg-transparent top-[395px] left-0 text-red"
+              className="h-[400px] w-[100%] absolute bg-transparent top-[395px] left-0"
               onClick={toggleNavlink}
             ></div>
           </div>
