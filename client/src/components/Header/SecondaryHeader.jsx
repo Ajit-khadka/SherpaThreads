@@ -14,11 +14,21 @@ const Header = () => {
   const [openLoginPop, setOpenLoginPop] = useState(false);
   const [navClick, setNavClick] = useState(false);
   const [quickBag, setQuickBag] = useState(false);
+  const [extraHeader, setExtraHeader] = useState();
 
   let navigate = useNavigate();
 
-  let toggleNavlink = () => {
+  let toggleNavlink = (navName) => {
     setNavClick(!navClick);
+    if (navName === "Accessories") {
+      setExtraHeader(navName);
+    } else if (navName === "Brands") {
+      setExtraHeader(navName);
+    } else if (navName === "Festivals") {
+      setExtraHeader(navName);
+    } else if (navName === "Themes") {
+      setExtraHeader(navName);
+    }
   };
 
   //open popup login modal
@@ -82,31 +92,25 @@ const Header = () => {
             SherpaThreads
           </div>
           <ul className="navlink flex gap-x-10 font-Nunito font-bold text-[15px] cursor-pointer ">
-            <li onClick={toggleNavlink}>
+            <li onClick={() => toggleNavlink("Accessories")}>
               Accessories{" "}
               <span className="">
                 <IoIosArrowDown />
               </span>
             </li>
-            <li onClick={toggleNavlink}>
+            <li onClick={() => toggleNavlink("Brands")}>
               Brands{" "}
               <span>
                 <IoIosArrowDown />
               </span>
             </li>
-            <li onClick={toggleNavlink}>
+            <li onClick={() => toggleNavlink("Festivals")}>
               Festivals{" "}
               <span>
                 <IoIosArrowDown />
               </span>
             </li>
-            <li onClick={toggleNavlink}>
-              Sizes{" "}
-              <span>
-                <IoIosArrowDown />
-              </span>
-            </li>
-            <li onClick={toggleNavlink}>
+            <li onClick={() => toggleNavlink("Themes")}>
               Themes{" "}
               <span>
                 <IoIosArrowDown />
@@ -116,7 +120,11 @@ const Header = () => {
         </nav>
         {navClick && (
           <div className="">
-            <HeaderExtra open={navClick} close={toggleNavlink} />
+            <HeaderExtra
+              open={navClick}
+              close={toggleNavlink}
+              navName={extraHeader}
+            />
             <div
               className="h-[333px] w-[100%] absolute bg-transparent top-[395px] left-0 z-10 "
               onClick={toggleNavlink}
