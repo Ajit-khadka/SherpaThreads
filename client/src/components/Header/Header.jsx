@@ -3,27 +3,18 @@ import { LuUser2 } from "react-icons/lu";
 import { GrFavorite } from "react-icons/gr";
 import { IoBagHandleOutline } from "react-icons/io5";
 // import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Login from "../Login/Login";
 import HeaderExtra from "./HeaderExtra";
-import axios from "axios";
+
 import QuickBag from "../QuickBag/QuickBag";
 
 const Header = () => {
-  const [userData, setUserData] = useState({});
   const [openLoginPop, setOpenLoginPop] = useState(false);
   const [headerColor, setHeaderColor] = useState(false);
   const [navClick, setNavClick] = useState(false);
   const [quickBag, setQuickBag] = useState(false);
   const [extraHeader, setExtraHeader] = useState();
-
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   // Update the state based on the current URL
-  //   location.pathname !== "/" ? setHeaderColor(true) : setHeaderColor(false);
-  //   console.log(location.pathname);
-  // }, [location.pathname]);
 
   let toggleNavlink = (navName) => {
     setNavClick(!navClick);
@@ -65,40 +56,14 @@ const Header = () => {
     setNavClick(false);
   };
 
-  //login
-  // console.log("userdata", userData);
-  const loginwithGoogle = () => {
-    window.open("http://localhost:8000/auth/google/callback", "_self");
-  };
-
-  const getUser = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/login", {
-        withCredentials: true,
-      });
-      // console.log("response", res);
-      setUserData(res.data.user);
-    } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        return console.log("No user logged");
-      }
-      return console.log("Axios Error:", err);
-    }
-  };
-
-  useEffect(() => {
-    // console.log("running");
-    getUser();
-  }, []);
-
   return (
     <div className=" flex flex-col  relative  z-10 ">
       <Login
         open={openLoginPop}
-        userData={userData}
-        googleLogin={() => {
-          loginwithGoogle();
-        }}
+        // userData={userData}
+        // googleLogin={() => {
+        //   loginwithGoogle();
+        // }}
         close={() => setOpenLoginPop(false)}
       />
       <QuickBag open={quickBag} close={() => setQuickBag(false)} />

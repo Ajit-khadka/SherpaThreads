@@ -3,10 +3,41 @@ import { FcGoogle } from "react-icons/fc";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
 import Favorites from "../Profile/Favorites";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Login = (props) => {
+  const [userData, setUserData] = useState({});
+
   //returning null to Header
   // console.log(props.userData);
+
+  //login
+  // console.log("userdata", userData);
+  const loginwithGoogle = () => {
+    window.open("http://localhost:8000/auth/google/callback", "_self");
+  };
+
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/login", {
+        withCredentials: true,
+      });
+      // console.log("response", res);
+      setUserData(res.data.user);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        console.log("Bad Request: Invalid parameters");
+      }
+      return console.log("Axios Error:", err);
+    }
+  };
+
+  useEffect(() => {
+    // console.log("running");
+    getUser();
+  }, []);
+
   if (props.open === false) return null;
 
   return (
@@ -18,7 +49,7 @@ const Login = (props) => {
         <div className="w-[100%] flex justify-between items-center">
           <div className="text-xl font-inter font-bold">
             {" "}
-            {Object.keys(props.userData).length > 0 ? "Profile" : "Welcome"}
+            {Object.keys(userData).length > 0 ? "Profile" : "Welcome"}
           </div>
           <div>
             <IoCloseSharp
@@ -27,8 +58,8 @@ const Login = (props) => {
             />
           </div>
         </div>
-        {Object?.keys(props.userData)?.length > 0 ? (
-          <Profile userData={props.userData} />
+        {Object?.keys(userData)?.length > 0 ? (
+          <Profile userData={userData} />
         ) : (
           <div>
             <div className="text-xl font-Inter font-bold mt-6">
@@ -47,7 +78,7 @@ const Login = (props) => {
                 OR
               </div>
               <div
-                onClick={props.googleLogin}
+                onClick={loginwithGoogle}
                 className="flex items-center justify-center uppercase py-3  w-[100%] font-bold text-[12px] bg-white text-black rounded-md font-Inter mt-3 tracking-widest border-[1px] border-black border-opacity-20 opacity-80 cursor-pointer"
               >
                 <FcGoogle className="mr-2 text-xl" /> Sign in with google
