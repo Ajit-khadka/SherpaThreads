@@ -14,6 +14,7 @@ import AdminTheme from "./pages/Admin/AdminTheme";
 import AdminFestiv from "./pages/Admin/AdminFestiv";
 import AdminBrand from "./pages/Admin/AdminBrand";
 import AdminUser from "./pages/Admin/AdminUser";
+import Order from "./pages/Order/Order"
 
 const App = () => {
   return (
@@ -37,7 +38,7 @@ const App = () => {
       <Route path="/Add/Festivals" element={<AdminFestiv />} />
       <Route path="/Add/Theme" element={<AdminTheme />} />
       <Route path="/All/Users" element={<AdminUser />} />
-      <Route path="/Orders" element={<AdminUser />} />
+      <Route path="/Orders" element={<Order />} />
     </Routes>
   );
 };

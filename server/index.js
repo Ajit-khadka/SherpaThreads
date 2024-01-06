@@ -2,28 +2,30 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
 const app = express()
+const bodyParser = require('body-parser')
 require('./db/connection')
 
 
 const session = require('express-session')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
-
-const userdb = require("./models/user")
+const userdb = require("./models/userModel")
+const router = require('./routes/authRoutes')
 
 const clientid = process.env.CLIENT_ID
 const clientsecret = process.env.CLIENT_SECRET
 
 //middleware
+app.use(express.json())
+app.use(bodyParser.json());
+app.use('/api', router)
+
 app.use(
     cors({
         origin:"http://localhost:5173",
         credentials:true,
         methods:"GET,POST,PUT,DELETE"
     }))
-
-app.use(express.json())
-// app.use('/', require('./routes/authRoutes'))
 
 //setup session
 app.use(session({

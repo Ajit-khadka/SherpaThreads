@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const router = express.Router()
-const {test} = require('../controllers/authControllers')
+const {getAll, getOne, deleteUser} = require('../controllers/userControllers')
 
 router.use(
     cors({
@@ -9,5 +9,10 @@ router.use(
         credentials:true,
         methods:"GET,POST,PUT,DELETE"
     }))
+
+//User
+router.get('/All/Users' , getAll)   
+router.get('/All/Users/getOne/:userId' , getOne)   
+router.delete('/All/Users/removeOne/:userId' , deleteUser)   
 
 module.exports = router
