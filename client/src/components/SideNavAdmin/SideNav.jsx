@@ -11,9 +11,9 @@ import "./SideNav.css";
 
 const SideNav = () => {
   return (
-    <sidenav className="flex justify-start">
+    <div className="flex justify-start">
       <section
-        className=" h-[95vh] w-[300px] m-4 font-Nunito rounded-xl shadow-3xl text-white"
+        className=" h-[95vh] w-[300px] my-4 ml-4 font-Nunito rounded-tl-xl rounded-bl-xl shadow-3xl text-white"
         style={{
           background: "linear-gradient(rgb(17, 24, 39), rgb(75, 85, 99))",
         }}
@@ -96,7 +96,7 @@ const SideNav = () => {
           </article>
         </main>
       </section>
-    </sidenav>
+    </div>
   );
 };
 
