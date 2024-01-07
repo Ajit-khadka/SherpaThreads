@@ -26,14 +26,14 @@ const AdminAcces = () => {
   console.log(productData);
 
   let addDescription = () => {
-    if(newDescription.trim() !== "")
-    setProductData((prevProductData) => ({
-      ...prevProductData,
-      productDescription: [
-        ...prevProductData.productDescription,
-        { id: uuidv4(), descriptions: newDescription },
-      ],
-    }));
+    if (newDescription.trim() !== "")
+      setProductData((prevProductData) => ({
+        ...prevProductData,
+        productDescription: [
+          ...prevProductData.productDescription,
+          { id: uuidv4(), descriptions: newDescription },
+        ],
+      }));
     setDescription("");
   };
 
