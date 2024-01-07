@@ -1,6 +1,5 @@
 import "./App.css";
 import MainHeader from "./pages/MainHeader";
-
 import Home from "./pages/Home";
 import Error from "./pages/Error";
 import { Routes, Route } from "react-router-dom";
