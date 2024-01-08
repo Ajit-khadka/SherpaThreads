@@ -7,6 +7,7 @@ import { PiKeyReturnDuotone } from "react-icons/pi";
 import { IoLeafOutline } from "react-icons/io5";
 import { TbGift } from "react-icons/tb";
 import { GrDeliver } from "react-icons/gr";
+import toast from "react-hot-toast";
 
 const AdminAcces = () => {
   const [newDescription, setDescription] = useState("");
@@ -14,6 +15,8 @@ const AdminAcces = () => {
   const [productData, setProductData] = useState({
     productName: "",
     productPrice: "",
+    productCategory: "Others",
+    productBrand: "Others",
     productDescription: [],
     productFeature: {
       fastShip: false,
@@ -21,12 +24,11 @@ const AdminAcces = () => {
       freeReturn: false,
       perfectGift: false,
     },
+    productImages: [],
   });
 
-  console.log(productData);
-
   let addDescription = () => {
-    if (newDescription.trim() !== "")
+    if (newDescription.trim() !== "" && newDescription.length > 0) {
       setProductData((prevProductData) => ({
         ...prevProductData,
         productDescription: [
@@ -34,10 +36,11 @@ const AdminAcces = () => {
           { id: uuidv4(), descriptions: newDescription },
         ],
       }));
-    setDescription("");
+      setDescription("");
+    } else {
+      toast.error("Please fill up all the data", { position: "bottom-left" });
+    }
   };
-
-  // console.log(productData.productDescription);
 
   let aboutProduct = productData.productDescription.map((items) => (
     <ul key={items.id} className="flex items-center mt-2">
@@ -59,23 +62,91 @@ const AdminAcces = () => {
     }));
   };
 
-  let formHandler = (event) => {
-    const { name, checked, value, type } = event.target;
-    setProductData((productData) => {
-      return { ...productData, [name]: type === "checkbox" ? checked : value };
+  let handleFeatureChange = (freatureName) => {
+    setProductData((prevProductData) => {
+      return {
+        ...prevProductData,
+        productFeature: {
+          ...prevProductData.productFeature,
+          [freatureName]: !prevProductData.productFeature[freatureName],
+        },
+      };
     });
+  };
+
+  let formHandler = (event) => {
+    const { name, value } = event.target;
+    setProductData((prevproductData) => {
+      return {
+        ...prevproductData,
+        [name]: value,
+      };
+    });
+  };
+
+  let imageHandler = (event) => {
+    if (productData.productImages.length < 2) {
+      setProductData((prevProductData) => {
+        return {
+          ...prevProductData,
+          productImages: [
+            ...prevProductData.productImages,
+            { id: uuidv4(), [event.target.name]: event.target.files },
+          ],
+        };
+      });
+    } else {
+      toast.error("You can upload a maximum of 2 images.", {
+        position: "bottom-left",
+      });
+    }
+  };
+
+  let deleteImg = (id) => {
+    setProductData((prevProductData) => ({
+      ...prevProductData,
+      productImages: productData.productImages.filter(
+        (items) => items.id !== id
+      ),
+    }));
+  };
+
+  let imageRender = productData.productImages.map((image) => (
+    <div
+      key={image.id}
+      style={{ display: "flex", alignItems: "center", marginTop: "20px" }}
+    >
+      <RxCross2
+        className="mr-4 text-red-500 cursor-pointer"
+        onClick={() => deleteImg(image.id)}
+      />
+      <img
+        src={URL.createObjectURL(image.Image[0])}
+        alt={`Product Image ${image.id}`}
+        style={{ maxWidth: "200px", maxHeight: "200px", marginRight: "30px" }}
+      />
+    </div>
+  ));
+
+  let productDataHandler = (e) => {
+    e.preventDefault();
+    if (productData.productDescription.length > 0) {
+      console.log(productData);
+    } else {
+      toast.error("Please fill up all the data", { position: "bottom-left" });
+    }
   };
 
   return (
     <div className="flex bg-indigo-300 h-[100vh] font-Nunito">
       <SideNav />
-      <div className=" p-10 space-y-8 shadow-xl bg-white h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl">
+      <div className="AllUser p-10 space-y-8 shadow-xl bg-white h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl overflow-y-scroll">
         <h1 className="text-black text-xl font-bold text-center mb-5">
           Add Accessories
         </h1>
         <div className="">
-          <form className="space-y-8">
-            <div className="flex items-center justify-center">
+          <form className="space-y-8" onSubmit={productDataHandler}>
+            <div className="flex items-center justify-left">
               <label className="w-[200px]" htmlFor="product_name">
                 Product Name
               </label>
@@ -90,13 +161,13 @@ const AdminAcces = () => {
                 required
               />
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-left">
               <label className="w-[200px] " htmlFor="product_price">
                 Product Price
               </label>
               <input
                 placeholder="e.g. 500"
-                type="text"
+                type="number"
                 id="product_price"
                 name="productPrice"
                 value={productData.productPrice}
@@ -105,7 +176,7 @@ const AdminAcces = () => {
                 required
               />
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-left">
               <label className="w-[200px] " htmlFor="product_description">
                 Product Description
               </label>
@@ -128,82 +199,139 @@ const AdminAcces = () => {
                 <div className=""> {aboutProduct}</div>
               </div>
             </div>
+            <section className="flex">
+              <label htmlFor="product_Brand" className="w-[200px]">
+                Product Brand
+              </label>
+              <select
+                id="product_Brand"
+                onChange={formHandler}
+                value={productData.productBrand}
+                name="productBrand"
+                className="w-[100px] border-2 rounded-md border-black p-1"
+              >
+                <option value="Aadarsha">Aadarsha</option>
+                <option value="Saundarya">Saundarya</option>
+                <option value="Aalur">Aalur</option>
+                <option value="Others">Others</option>
+              </select>
+            </section>
+            <section className="flex">
+              <label htmlFor="product_Brand" className="w-[200px]">
+                Product Category
+              </label>
+              <select
+                id="product_Category"
+                onChange={formHandler}
+                value={productData.productCategory}
+                name="productCategory"
+                className="w-[100px] border-2 rounded-md border-black p-1"
+              >
+                <option value="Anime">Anime</option>
+                <option value="Cartoon">Cartoon</option>
+                <option value="Movie">Movie</option>
+                <option value="Others">Others</option>
+              </select>
+            </section>
 
             <section className="">
-              <div className="flex items-center justify-evenly">
-                <div className="flex">
-                  <input
-                    className="mr-2"
-                    type="checkbox"
-                    id="fast_shipping"
-                    checked={productData.productFeature.fastShip}
-                    onChange={formHandler}
-                    name="fastShip"
-                  />
-                  <label
-                    className="flex items-center space-x-2"
-                    htmlFor="fast_shipping"
-                  >
-                    <GrDeliver className="h-6 w-6 ml-1" />
-                    <span>Fast shipping</span>
-                  </label>
-                </div>
-                <div className="flex">
-                  {" "}
-                  <input
-                    className="mr-2"
-                    type="checkbox"
-                    id="perfect_gift"
-                    checked={productData.productFeature.perfectGift}
-                    onChange={formHandler}
-                    name="perfectGift"
-                  />
-                  <label
-                    className="flex items-center space-x-2"
-                    htmlFor="perfect_gift"
-                  >
+              <div className="flex">
+                <div className="w-[200px] ">Product Features</div>
+                <div className="space-y-4">
+                  <div className="flex">
+                    <input
+                      className="mr-2 cursor-pointer"
+                      type="checkbox"
+                      id="fast_shipping"
+                      checked={productData.productFeature.fastShip}
+                      onChange={() => handleFeatureChange("fastShip")}
+                      name="fastShip"
+                    />
+                    <label
+                      className="flex items-center space-x-2"
+                      htmlFor="fast_shipping"
+                    >
+                      <GrDeliver className="h-6 w-6 ml-1" />
+                      <span>Fast shipping</span>
+                    </label>
+                  </div>
+                  <div className="flex">
                     {" "}
-                    <TbGift className="h-7 w-7" />
-                    <span> Perfect to gift</span>
-                  </label>
-                </div>
-                <div className="flex">
-                  <input
-                    className="mr-2"
-                    type="checkbox"
-                    id="eco_friendly"
-                    checked={productData.productFeature.ecoFriendly}
-                    onChange={formHandler}
-                    name="ecoFriendly"
-                  />
-                  <label
-                    className="flex items-center space-x-2"
-                    htmlFor="eco_friendly"
-                  >
-                    <IoLeafOutline className="h-6 w-6 ml-1" />
-                    <span> Eco-friendly</span>
-                  </label>
-                </div>
-                <div className="flex">
-                  <input
-                    className="mr-2"
-                    type="checkbox"
-                    id="free_gift"
-                    checked={productData.productFeature.freeReturn}
-                    onChange={formHandler}
-                    name="freeReturn"
-                  />
-                  <label
-                    className="flex items-center space-x-2"
-                    htmlFor="free_gift"
-                  >
-                    <PiKeyReturnDuotone className="h-6 w-6 ml-1" />
-                    <span> Free returns</span>
-                  </label>
+                    <input
+                      className="mr-2 cursor-pointer"
+                      type="checkbox"
+                      id="perfect_gift"
+                      checked={productData.productFeature.perfectGift}
+                      onChange={() => handleFeatureChange("perfectGift")}
+                      name="perfectGift"
+                    />
+                    <label
+                      className="flex items-center space-x-2"
+                      htmlFor="perfect_gift"
+                    >
+                      {" "}
+                      <TbGift className="h-7 w-7" />
+                      <span> Perfect to gift</span>
+                    </label>
+                  </div>
+                  <div className="flex">
+                    <input
+                      className="mr-2 cursor-pointer"
+                      type="checkbox"
+                      id="eco_friendly"
+                      checked={productData.productFeature.ecoFriendly}
+                      onChange={() => handleFeatureChange("ecoFriendly")}
+                      name="ecoFriendly"
+                    />
+                    <label
+                      className="flex items-center space-x-2"
+                      htmlFor="eco_friendly"
+                    >
+                      <IoLeafOutline className="h-6 w-6 ml-1" />
+                      <span> Eco-friendly</span>
+                    </label>
+                  </div>
+                  <div className="flex">
+                    <input
+                      className="mr-2 cursor-pointer "
+                      type="checkbox"
+                      id="free_gift"
+                      checked={productData.productFeature.freeReturn}
+                      onChange={() => handleFeatureChange("freeReturn")}
+                      name="freeReturn"
+                    />
+                    <label
+                      className="flex items-center space-x-2"
+                      htmlFor="free_gift"
+                    >
+                      <PiKeyReturnDuotone className="h-6 w-6 ml-1" />
+                      <span> Free returns</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </section>
-            <div className="flex justify-center">
+            <div className="flex items-center justify-left">
+              <label className="w-[200px] " htmlFor="product_img">
+                Upload Image
+              </label>
+              <div>
+                <div className="flex">
+                  <input
+                    className="w-[300px]"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    required
+                    id="product_img"
+                    name="Image"
+                    onChange={imageHandler}
+                  />
+                </div>
+                <div className=" flex">{imageRender}</div>
+              </div>
+            </div>
+            <div className="flex justify-left">
               <button
                 className="px-5 py-2 uppercase text-white rounded-md font-semibold "
                 style={{ background: "#428bca" }}
