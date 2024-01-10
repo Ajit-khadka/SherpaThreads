@@ -4,7 +4,7 @@ const accessoriesModel = require("../models/accessoriesModel");1
 const createAccessories = async(req,res) => {
     try{
         const accessoriesdata = new accessoriesModel(req.body)
-        console.log(req.body)
+        // console.log(req.body)
         if(!accessoriesdata){
             return res.status(404).json({msg : "Accessories Data not found"})
         } 
@@ -63,9 +63,9 @@ const deleteAccessories = async(req,res) => {
 const updateAccessories = async(req,res) => {
     try{
         const userId = req.params.userId
-        // console.log(userId)
+        console.log(userId)
         const accessoriesdata = await accessoriesModel.findByIdAndUpdate(userId, {$set: req.body}, {new:true})
-        // console.log(req.body)
+        console.log(req.body)
         if(!accessoriesdata){
            return res.status(404).json({msg : "Accessories Data not found"})
         } 

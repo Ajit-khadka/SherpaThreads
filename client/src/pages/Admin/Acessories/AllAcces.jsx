@@ -9,7 +9,7 @@ import { MdEdit } from "react-icons/md";
 
 const AllAccess = () => {
   const [accessories, setAccessories] = useState([]);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const userFetch = async () => {
@@ -42,23 +42,31 @@ const AllAccess = () => {
       });
   };
 
-  let allAccessories = accessories.map((accessory, index) => {
+  let allAccessories = accessories.filter((accessory) => {
+    return search === '' ? accessory : accessory.productName.toLowerCase().includes(search.toLowerCase())
+  }).map((accessory, index) => {
+    const createdDate = new Date(accessory.createdAt);
+    const createDateformatted = createdDate.toLocaleString();
+
+    const updatedDate = new Date(accessory.updatedAt);
+    const updateDateformatted = updatedDate.toLocaleString();
+
     return (
       <tr key={accessory._id} className="">
         <td data-th="P.No">{index + 1}</td>
         <td data-th="Product Name">{accessory.productName}</td>
         <td data-th="Product Price">{accessory.productPrice}</td>
-        <td data-th="Created At">{accessory.createdAt}</td>
-        <td data-th="Updated At">{accessory.updatedAt}</td>
+        <td data-th="Created At">{createDateformatted}</td>
+        <td data-th="Updated At">{updateDateformatted}</td>
         <td data-th="Action" className="">
-          <div className="flex justify-center items-center space-x-4">
+          <div className="flex items-center space-x-4">
             <div className="w-[20px] ">
               <Link
                 className=""
                 to={`/Add/Accessories/update/${accessory._id}`}
               >
                 {" "}
-                <MdEdit className="text-xl" />
+                <MdEdit className="text-xl text-blue-500" />
               </Link>
             </div>
 
@@ -66,7 +74,7 @@ const AllAccess = () => {
               className=" text-xl "
               onClick={() => deleteUser(accessory._id)}
             >
-              <MdDelete />
+              <MdDelete  className="text-red-500"/>
             </button>
           </div>
         </td>

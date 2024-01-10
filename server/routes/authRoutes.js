@@ -1,6 +1,4 @@
 const express = require('express')
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const cors = require('cors')
 const router = express.Router()
 const {getAll, getOne, deleteUser} = require('../controllers/userControllers')
@@ -19,7 +17,7 @@ router.get('/All/Users/getOne/:userId' , getOne)
 router.delete('/All/Users/removeOne/:userId' , deleteUser)   
 
 //Accessories
-router.post('/Add/Accessories/create',  upload.array('productImages.Images', 2), createAccessories)
+router.post('/Add/Accessories/create', createAccessories)
 router.get('/Add/Accessories', getAllAccessories)
 router.get('/Add/Accessories/:userId', getOneAccessories)
 router.delete('/Add/Accessories/remove/:userId', deleteAccessories)

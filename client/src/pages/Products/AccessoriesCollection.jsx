@@ -1,20 +1,19 @@
 import AccessoriesProducts from "../../components/Accessories/AccessoriesProducts";
 import SecondaryHeader from "../../components/Header/SecondaryHeader";
-import PopularNow from "../../data/PopularNow";
 import { RxMixerHorizontal } from "react-icons/rx";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const AccessoriesCollection = () => {
   const [showCat, setShowCat] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const [filterData, setFilterData] = useState({
-    category: "",
-    brand: "",
+    category: "Others",
+    brand: "Others",
   });
-
-  console.log(filterData.category);
 
   let catHandler = () => {
     setShowCat(!showCat);
@@ -33,10 +32,46 @@ const AccessoriesCollection = () => {
     });
   };
 
-  let popularItem = PopularNow.map((items) => {
-    // console.log(items)
-    return <AccessoriesProducts key={items.id} items={items} />;
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/Add/Accessories"
+        );
+        setProducts(res.data.accessoriesdata);
+      } catch (err) {
+        console.log((err) => {
+          console.log("error", err);
+        });
+      }
+    };
+
+    const fetchDataTimer = () => {
+      fetchData();
+      const interval = setInterval(fetchData, 30000);
+
+      // console.log("data fetched");
+      return () => clearInterval(interval);
+    };
+
+    fetchDataTimer();
+  }, []);
+
+  let AccessoriesItem = products
+    .filter((item) => {
+      if (filterData.category === "Others" && filterData.brand === "Others") {
+        return item;
+      } else {
+        return (
+          item.productCategory === filterData.category ||
+          item.productBrand === filterData.brand
+        );
+      }
+    })
+    .map((product) => {
+      // console.log(items)
+      return <AccessoriesProducts key={product._id} product={product} />;
+    });
 
   return (
     <div className="h-[100vh]">
@@ -187,8 +222,10 @@ const AccessoriesCollection = () => {
             </div>
             <div className=" border-t-[1px] mt-5 w-[100%]"></div>
           </div>
-          <div className=" Collection--scrollhide content-center w-[75%] pb-10">
-            <div className=" flex flex-wrap justify-around">{popularItem}</div>
+          <div className=" Collection--scrollhide content-center w-[75%] pb-10 text-left">
+            <div className=" flex flex-wrap justify-around gap-x-10">
+              {AccessoriesItem}
+            </div>
           </div>
         </div>
       </div>

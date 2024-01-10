@@ -7,7 +7,7 @@ import "./AllUsers/AdminUser.css";
 
 const AdminUser = () => {
   const [users, setUser] = useState([]);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const userFetch = async () => {
@@ -36,21 +36,31 @@ const AdminUser = () => {
       });
   };
 
-  let allUsers = users.map((user, index) => {
-    return (
-      <tr key={user._id} className="">
-        <td data-th="S.No">{index + 1}</td>
-        <td data-th="Username">{user.userName}</td>
-        <td data-th="Email">{user.email}</td>
-        <td data-th="Account Created">{user.createdAt}</td>
-        <td data-th="Action" className="">
-          <button className=" text-xl" onClick={() => deleteUser(user._id)}>
-            <MdDelete />
-          </button>
-        </td>
-      </tr>
-    );
-  });
+  let allUsers = users
+    .filter((user) => {
+      return search === "" ? user : user.userName.toLowerCase().includes(search.toLowerCase());
+    })
+    .map((user, index) => {
+      const createdDate = new Date(user.createdAt);
+      const createDateformatted = createdDate.toLocaleString();
+
+      return (
+        <tr key={user._id} className="">
+          <td data-th="S.No">{index + 1}</td>
+          <td data-th="Username">{user.userName}</td>
+          <td data-th="Email">{user.email}</td>
+          <td data-th="Account Created">{createDateformatted}</td>
+          <td data-th="Action" className="">
+            <button
+              className=" text-xl flex justify-center items-center"
+              onClick={() => deleteUser(user._id)}
+            >
+              <MdDelete className="text-red-500" />
+            </button>
+          </td>
+        </tr>
+      );
+    });
 
   return (
     <div className="flex bg-indigo-300 h-[100vh] w-[100vw] font-Nunito ">

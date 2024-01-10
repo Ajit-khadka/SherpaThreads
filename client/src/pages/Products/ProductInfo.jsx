@@ -3,14 +3,39 @@ import { PiKeyReturnDuotone } from "react-icons/pi";
 import { IoLeafOutline } from "react-icons/io5";
 import { TbGift } from "react-icons/tb";
 import { GrDeliver } from "react-icons/gr";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ProductInfo = () => {
+  const { id } = useParams();
   const [userBuy, setUserBuy] = useState({
     buyerGender: "",
     productColour: "",
     productSize: "",
   });
+  const [productInfo, setProductInfo] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios
+          .get(`http://localhost:8000/api/Add/Accessories/${id}`)
+          .then((res) => setProductInfo(res.data.accessoriesExists))
+          .catch((err) => console.log("error", err));
+      } catch (err) {
+        console.log("error", err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  let aboutProduct = productInfo.productDescription?.map((items) => (
+    <ul key={items.id} className="ProductInfo--productAbout mt-2">
+      <li> • {items.descriptions}</li>
+    </ul>
+  ));
 
   let orderHandler = (objectName, objectValue) => {
     setUserBuy((userBuy) => {
@@ -22,8 +47,9 @@ const ProductInfo = () => {
   };
 
   return (
-    <div className="h-[100vh]">
+    <div className="h-[100vh]" key={productInfo._id}>
       <SecondaryHeader />
+
       <div className=" flex items-center h-[85vh] justify-center">
         <div className="h-[550px] w-[400px] overflow-hidden  bg-gray-400 rounded-md">
           <img
@@ -31,11 +57,13 @@ const ProductInfo = () => {
             src="/images/modelfont.jpg"
           />
         </div>
-        <div className="ProductInfo--description flex flex-col  items-start  overflow-scroll ml-10 h-[550px] w-[1000px]">
-          <div className="italic font-Sans font-extrabold text-2xl uppercase">
-            VINTAGE ELAINE T-SHIRT{" "}
+        <div className="ProductInfo--description flex flex-col  items-start  overflow-scroll ml-10 h-[550px] w-[1000px] ">
+          <div className="italic font-Sans font-extrabold text-2xl uppercase mt-1">
+            {productInfo.productName}{" "}
           </div>
-          <div className="mt-2 text-xl opacity-80 font-Inter">Rs 5000</div>
+          <div className="mt-2 text-xl opacity-80 font-Inter">
+            Rs {productInfo.productPrice}
+          </div>
           <div className=" border-t-[1px] my-4 w-[100%]"></div>
           <div>
             <span className="">
@@ -210,38 +238,51 @@ const ProductInfo = () => {
             <div className="font-Inter font-semibold ">
               Things to know about the product
             </div>
-            <ul className="ProductInfo--productAbout mt-2">
-              <li>• Brilliant print quality</li>
-              <li>• 100% combed cotton</li>
-              <li>• Ethically sourced garment</li>
-              <li>• Made-to-order by SherpaThreads</li>
-            </ul>
+            {aboutProduct}
           </div>
-          <div className="mt-4 space-y-1">
-            <div className=" flex space-x-2 items-center ">
-              <GrDeliver className="h-6 w-6 ml-1" />
-              <span className="font-Inter text-sm opacity-80">
-                Fast shipping
-              </span>
-            </div>
-            <div className=" flex space-x-2 items-center">
-              <PiKeyReturnDuotone className="h-7 w-7" />
-              <span className="font-Inter text-sm opacity-80">
-                Free returns{" "}
-              </span>
-            </div>
-            <div className=" flex space-x-2 items-center">
-              <IoLeafOutline className="h-7 w-7" />
-              <span className="font-Inter text-sm opacity-80">
-                Eco-friendly{" "}
-              </span>
-            </div>
-            <div className=" flex space-x-2 items-center">
-              <TbGift className="h-7 w-7" />
-              <span className="font-Inter text-sm opacity-80">
-                Perfect to gift
-              </span>
-            </div>
+
+          <div className="mt-4 space-y-2">
+            {(productInfo.productFeature?.fastShip ||
+              productInfo.productFeature?.freeReturn ||
+              productInfo.productFeature?.ecoFriendly ||
+              productInfo.productFeature?.perfectGift) && (
+              <div className="font-Inter font-semibold ">
+                Feature provide through product
+              </div>
+            )}
+
+            {productInfo.productFeature?.fastShip && (
+              <div className=" flex space-x-2 items-center ">
+                <GrDeliver className="h-6 w-6 ml-1" />
+                <span className="font-Inter text-sm opacity-80">
+                  Fast shipping
+                </span>
+              </div>
+            )}
+            {productInfo.productFeature?.freeReturn && (
+              <div className=" flex space-x-2 items-center">
+                <PiKeyReturnDuotone className="h-7 w-7" />
+                <span className="font-Inter text-sm opacity-80">
+                  Free returns{" "}
+                </span>
+              </div>
+            )}
+            {productInfo.productFeature?.ecoFriendly && (
+              <div className=" flex space-x-2 items-center">
+                <IoLeafOutline className="h-7 w-7" />
+                <span className="font-Inter text-sm opacity-80">
+                  Eco-friendly{" "}
+                </span>
+              </div>
+            )}
+            {productInfo.productFeature?.perfectGift && (
+              <div className=" flex space-x-2 items-center">
+                <TbGift className="h-7 w-7" />
+                <span className="font-Inter text-sm opacity-80">
+                  Perfect to gift
+                </span>
+              </div>
+            )}
           </div>
           <div className=" border-t-[1px] my-4 w-[100%]"></div>
           {/* comments */}
