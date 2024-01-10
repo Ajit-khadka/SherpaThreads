@@ -42,7 +42,7 @@ const AdminUser = () => {
         <td data-th="S.No">{index + 1}</td>
         <td data-th="Username">{user.userName}</td>
         <td data-th="Email">{user.email}</td>
-        <td data-th="Account">{user.createdAt}</td>
+        <td data-th="Account Created">{user.createdAt}</td>
         <td data-th="Action" className="">
           <button className=" text-xl" onClick={() => deleteUser(user._id)}>
             <MdDelete />
@@ -97,7 +97,7 @@ const AdminUser = () => {
                   <th>S.No.</th>
                   <th>Username</th>
                   <th>Email</th>
-                  <th>Account created</th>
+                  <th>Account Created</th>
                   <th>Action</th>
                 </tr>
                 {allUsers}
