@@ -149,9 +149,10 @@ const UpdateAcces = () => {
 
   let productDataHandler = async (e) => {
     e.preventDefault();
+    console.log(productData)
     if (productData.productDescription.length > 0) {
       await axios
-        .post(
+        .put(
           `http://localhost:8000/api/Add/Accessories/update/${id}`,
           productData
         )
@@ -367,7 +368,7 @@ const UpdateAcces = () => {
                 className="px-5 py-2 uppercase text-white rounded-md font-semibold "
                 style={{ background: "#428bca" }}
               >
-                Submit
+                Update
               </button>
             </div>
           </form>

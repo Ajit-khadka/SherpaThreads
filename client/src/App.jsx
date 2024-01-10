@@ -29,7 +29,7 @@ const App = () => {
       />
       <Route path="/collection/Brands" element={<BrandsCollection />} />
       <Route path="/collection/Festivals" element={<FestivalsCollection />} />
-      <Route path="/collection/ProductInfo" element={<ProductInfo />} />
+      <Route path="/collection/ProductInfo/:id" element={<ProductInfo />} />
       <Route path="/Admin" element={<AdminLand />} />
       <Route path="*" element={<Error />} />
       <Route path="/Admin" element={<AdminLand />} />

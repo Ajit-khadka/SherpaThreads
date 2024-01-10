@@ -8,6 +8,8 @@ const Profile = (props) => {
     window.open("http:///localhost:8000/logout", "_self");
   };
 
+  console.log(props.userData?.profileImage);
+
   return (
     <div className="">
       <div className="flex justify-center flex-col w-[100%] items-center ">
