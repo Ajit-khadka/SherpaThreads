@@ -8,12 +8,14 @@ import AccessoriesCollection from "./pages/Products/AccessoriesCollection";
 import BrandsCollection from "./pages/Products/BrandsCollection";
 import FestivalsCollection from "./pages/Products/FestivalsCollection";
 import AdminLand from "./pages/Admin/AdminLand";
-import AdminAcces from "./pages/Admin/AdminAcces";
 import AdminTheme from "./pages/Admin/AdminTheme";
 import AdminFestiv from "./pages/Admin/AdminFestiv";
 import AdminBrand from "./pages/Admin/AdminBrand";
 import AdminUser from "./pages/Admin/AdminUser";
-import Order from "./pages/Order/Order"
+import Order from "./pages/Order/Order";
+import AllAcces from "./pages/Admin/Acessories/AllAcces";
+import UpdateAcces from "./pages/Admin/Acessories/UpdateAcces";
+import CreateAcces from "./pages/Admin/Acessories/CreateAcces";
 
 const App = () => {
   return (
@@ -30,9 +32,10 @@ const App = () => {
       <Route path="/collection/ProductInfo" element={<ProductInfo />} />
       <Route path="/Admin" element={<AdminLand />} />
       <Route path="*" element={<Error />} />
-
       <Route path="/Admin" element={<AdminLand />} />
-      <Route path="/Add/Accessories" element={<AdminAcces />} />
+      <Route path="/Add/Accessories" element={<AllAcces />} />
+      <Route path="/Add/Accessories/create" element={<CreateAcces />} />
+      <Route path="/Add/Accessories/update/:id" element={<UpdateAcces />} />
       <Route path="/Add/Brands" element={<AdminBrand />} />
       <Route path="/Add/Festivals" element={<AdminFestiv />} />
       <Route path="/Add/Theme" element={<AdminTheme />} />

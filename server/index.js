@@ -1,8 +1,9 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
-const app = express()
 const bodyParser = require('body-parser')
+const app = express()
+
 require('./db/connection')
 
 
@@ -14,6 +15,7 @@ const router = require('./routes/authRoutes')
 
 const clientid = process.env.CLIENT_ID
 const clientsecret = process.env.CLIENT_SECRET
+const sessionsecret = process.env.SESSION_SECRET
 
 //middleware
 app.use(express.json())
@@ -29,7 +31,7 @@ app.use(
 
 //setup session
 app.use(session({
-    secret:"sdjkasnfdjf213343",
+    secret: sessionsecret,
     resave:false,
     saveUninitialized:true,
 }))

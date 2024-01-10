@@ -1,5 +1,5 @@
-import { useState } from "react";
-import SideNav from "../../components/SideNavAdmin/SideNav";
+import { useEffect, useState } from "react";
+import SideNav from "../../../components/SideNavAdmin/SideNav";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
@@ -8,13 +8,18 @@ import { IoLeafOutline } from "react-icons/io5";
 import { TbGift } from "react-icons/tb";
 import { GrDeliver } from "react-icons/gr";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AdminAcces = () => {
+const UpdateAcces = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [newDescription, setDescription] = useState("");
 
   const [productData, setProductData] = useState({
     productName: "",
-    productPrice: "",
+    productPrice: 0,
     productCategory: "Others",
     productBrand: "Others",
     productDescription: [],
@@ -26,6 +31,20 @@ const AdminAcces = () => {
     },
     productImages: [],
   });
+
+  useEffect(() => {
+    const checkExists = async () => {
+      try {
+        await axios
+          .get(`http://localhost:8000/api/Add/Accessories/${id}`)
+          .then((res) => setProductData(res.data.accessoriesExists))
+          .catch((err) => console.log("error", err));
+      } catch (err) {
+        console.log("error", err);
+      }
+    };
+    checkExists();
+  }, [id]);
 
   let addDescription = () => {
     if (newDescription.trim() !== "" && newDescription.length > 0) {
@@ -102,36 +121,45 @@ const AdminAcces = () => {
     }
   };
 
-  let deleteImg = (id) => {
-    setProductData((prevProductData) => ({
-      ...prevProductData,
-      productImages: productData.productImages.filter(
-        (items) => items.id !== id
-      ),
-    }));
-  };
+  // let deleteImg = (id) => {
+  //   setProductData((prevProductData) => ({
+  //     ...prevProductData,
+  //     productImages: productData.productImages.filter(
+  //       (items) => items.id !== id
+  //     ),
+  //   }));
+  // };
 
-  let imageRender = productData.productImages.map((image) => (
-    <div
-      key={image.id}
-      style={{ display: "flex", alignItems: "center", marginTop: "20px" }}
-    >
-      <RxCross2
-        className="mr-4 text-red-500 cursor-pointer"
-        onClick={() => deleteImg(image.id)}
-      />
-      <img
-        src={URL.createObjectURL(image.Image[0])}
-        alt={`Product Image ${image.id}`}
-        style={{ maxWidth: "200px", maxHeight: "200px", marginRight: "30px" }}
-      />
-    </div>
-  ));
+  // let imageRender = productData.productImages.map((image) => (
+  //   <div
+  //     key={image.id}
+  //     style={{ display: "flex", alignItems: "center", marginTop: "20px" }}
+  //   >
+  //     <RxCross2
+  //       className="mr-4 text-red-500 cursor-pointer"
+  //       onClick={() => deleteImg(image.id)}
+  //     />
+  //     <img
+  //       src={URL.createObjectURL(image.Image)}
+  //       alt={`Product Image ${image.id}`}
+  //       style={{ maxWidth: "200px", maxHeight: "200px", marginRight: "30px" }}
+  //     />
+  //   </div>
+  // ));
 
-  let productDataHandler = (e) => {
+  let productDataHandler = async (e) => {
     e.preventDefault();
     if (productData.productDescription.length > 0) {
-      console.log(productData);
+      await axios
+        .post(
+          `http://localhost:8000/api/Add/Accessories/update/${id}`,
+          productData
+        )
+        .then((res) => {
+          toast.success(res.data.msg, { position: "bottom-left" });
+          navigate("/Add/Accessories");
+        })
+        .catch((err) => console.log("error", err));
     } else {
       toast.error("Please fill up all the data", { position: "bottom-left" });
     }
@@ -170,6 +198,8 @@ const AdminAcces = () => {
                 type="number"
                 id="product_price"
                 name="productPrice"
+                step="any"
+                min={0}
                 value={productData.productPrice}
                 onChange={formHandler}
                 className="bg-gray-50  border w-[300px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
@@ -315,7 +345,8 @@ const AdminAcces = () => {
               <label className="w-[200px] " htmlFor="product_img">
                 Upload Image
               </label>
-              <div>
+              <div className="space-y-4">
+                <span>(Try to use Potrait Images)</span>
                 <div className="flex">
                   <input
                     className="w-[300px]"
@@ -328,7 +359,7 @@ const AdminAcces = () => {
                     onChange={imageHandler}
                   />
                 </div>
-                <div className=" flex">{imageRender}</div>
+                {/* <div className=" flex">{imageRender}</div> */}
               </div>
             </div>
             <div className="flex justify-left">
@@ -346,4 +377,4 @@ const AdminAcces = () => {
   );
 };
 
-export default AdminAcces;
+export default UpdateAcces;
