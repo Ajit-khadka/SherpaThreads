@@ -28,7 +28,7 @@ export default [
 }
   ,  {
     id:5,
-    name: "More Prodcuts",
+    name: "More Products",
     AccessImg: "more.jpg",
     type: "Themes"
 

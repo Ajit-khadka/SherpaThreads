@@ -133,14 +133,13 @@ const AdminAcces = () => {
 
   let productDataHandler = async (e) => {
     e.preventDefault();
-    // console.log(productData);
-    // console.log(productData.productImages);
+
     if (productData.productDescription.length > 0) {
       await axios
         .post("http://localhost:8000/api/Add/Accessories/create", productData)
         .then((res) => {
           toast.success(res.data.msg, { position: "bottom-left" });
-          navigate("/Add/Accessories");
+          navigate("/Admin/Add/Accessories");
         })
         .catch((err) => console.log("error", err));
     } else {
@@ -214,7 +213,7 @@ const AdminAcces = () => {
             </div>
             <section className="flex">
               <label htmlFor="product_Brand" className="w-[200px]">
-                Product Brand
+                Products Section
               </label>
               <select
                 id="product_Brand"
@@ -223,9 +222,10 @@ const AdminAcces = () => {
                 name="productBrand"
                 className="w-[100px] border-2 rounded-md border-black p-1"
               >
-                <option value="Aadarsha">Aadarsha</option>
-                <option value="Saundarya">Saundarya</option>
-                <option value="Aalur">Aalur</option>
+                <option value="Socks">Socks</option>
+                <option value="Stickers">Stickers</option>
+                <option value="WallArts">WallArts</option>
+                <option value="Blankets">Blankets</option>
                 <option value="Others">Others</option>
               </select>
             </section>

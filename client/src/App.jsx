@@ -7,15 +7,10 @@ import ProductInfo from "./pages/Products/ProductInfo";
 import AccessoriesCollection from "./pages/Products/AccessoriesCollection";
 import BrandsCollection from "./pages/Products/BrandsCollection";
 import FestivalsCollection from "./pages/Products/FestivalsCollection";
-import AdminLand from "./pages/Admin/AdminLand";
-import AdminTheme from "./pages/Admin/AdminTheme";
-import AdminFestiv from "./pages/Admin/AdminFestiv";
-import AdminBrand from "./pages/Admin/AdminBrand";
-import AdminUser from "./pages/Admin/AdminUser";
-import Order from "./pages/Order/Order";
-import AllAcces from "./pages/Admin/Acessories/AllAcces";
-import UpdateAcces from "./pages/Admin/Acessories/UpdateAcces";
-import CreateAcces from "./pages/Admin/Acessories/CreateAcces";
+import { Suspense, lazy } from "react";
+import ThemesCollection from "./pages/Products/ThemesCollection";
+
+const AdminRoutes = lazy(() => import("./pages/Admin/AdminRoute/AdminRoutes"));
 
 const App = () => {
   return (
@@ -29,18 +24,33 @@ const App = () => {
       />
       <Route path="/collection/Brands" element={<BrandsCollection />} />
       <Route path="/collection/Festivals" element={<FestivalsCollection />} />
+      <Route path="/collection/Themes" element={<ThemesCollection />} />
       <Route path="/collection/ProductInfo/:id" element={<ProductInfo />} />
-      <Route path="/Admin" element={<AdminLand />} />
       <Route path="*" element={<Error />} />
-      <Route path="/Admin" element={<AdminLand />} />
-      <Route path="/Add/Accessories" element={<AllAcces />} />
-      <Route path="/Add/Accessories/create" element={<CreateAcces />} />
-      <Route path="/Add/Accessories/update/:id" element={<UpdateAcces />} />
-      <Route path="/Add/Brands" element={<AdminBrand />} />
-      <Route path="/Add/Festivals" element={<AdminFestiv />} />
-      <Route path="/Add/Theme" element={<AdminTheme />} />
-      <Route path="/All/Users" element={<AdminUser />} />
-      <Route path="/Orders" element={<Order />} />
+
+      <Route
+        path="Admin/*"
+        element={
+          <Suspense
+            fallback={
+              <div
+                className="flex justify-center items-center h-[100vh] w-[100vw]"
+                style={{ background: "#f1f2f3" }}
+              >
+                <div className="loadingio-spinner-dual-ball-0at5cijh53fj">
+                  <div className="ldio-odtg1yzmetf">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <AdminRoutes />{" "}
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };

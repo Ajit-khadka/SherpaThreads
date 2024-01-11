@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GrFavorite } from "react-icons/gr";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const AccessoriesProducts = (props) => {
   const [quickBag, setQuickBag] = useState(false);
@@ -35,7 +36,7 @@ const AccessoriesProducts = (props) => {
     setQuickBagAnime(false);
   };
 
-  console.log(props.product)
+  // console.log(props.product);
 
   return (
     <div className="">
@@ -50,7 +51,7 @@ const AccessoriesProducts = (props) => {
             // onMouseOver={onImageHandler}
             // onMouseOut={outImageHandler}
           >
-            <img
+            <LazyLoadImage
               className="max-w-[100%] max-h-[100%] object-cover"
               src={`/images/modelfont.jpg`}
               alt="products"

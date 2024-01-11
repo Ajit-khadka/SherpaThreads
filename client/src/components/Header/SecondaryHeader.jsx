@@ -69,7 +69,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col sticky top-0 left-0 z-10 h-[13vh] bg-white">
+    <div className=" flex flex-col fixed top-0 left-0 z-10 h-[13vh] w-[100%] bg-white">
       <Login
         open={openLoginPop}
         userData={userData}
@@ -91,7 +91,7 @@ const Header = () => {
           >
             SherpaThreads
           </div>
-          <ul className="navlink flex gap-x-10 font-Nunito font-bold text-[15px] cursor-pointer ">
+          <ul className="navlink flex gap-x-10 font-Nunito font-bold text-[15px] cursor-pointer">
             <li onClick={() => toggleNavlink("Accessories")}>
               Accessories{" "}
               <span className="">

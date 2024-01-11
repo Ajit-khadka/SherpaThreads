@@ -71,7 +71,7 @@ const updateAccessories = async(req,res) => {
         } 
 
         // console.log("updated acessories", accessoriesdata)
-        res.status(200).json({accessoriesdata})
+        res.status(200).json({msg : "Accessories Updated"})
     }catch(err){
         res.status(500).json({error : err})
     }

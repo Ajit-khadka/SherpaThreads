@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GrFavorite } from "react-icons/gr";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const PopularItems = (props) => {
   const [quickBag, setQuickBag] = useState(false);
@@ -49,14 +50,14 @@ const PopularItems = (props) => {
             onMouseOut={outImageHandler}
           >
             {frontImage && (
-              <img
+              <LazyLoadImage
                 className="max-w-[100%] max-h-[100%] object-cover"
                 src={`/images/${props.items.fontImg}`}
                 alt="products"
               />
             )}
             {backImage && (
-              <img
+              <LazyLoadImage
                 className={` ${
                   backImage && "PopularItems--ImagefadeIntro"
                 }  max-w-[100%] max-h-[100%] object-cover `}

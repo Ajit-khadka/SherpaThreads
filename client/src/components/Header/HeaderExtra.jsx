@@ -5,12 +5,13 @@ import Brands from "../../data/CategoryData/Brands";
 import Festival from "../../data/CategoryData/Festival";
 import Themes from "../../data/CategoryData/Themes";
 import { useState, useEffect } from "react";
+import { IoArrowForward } from "react-icons/io5";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const HeaderExtra = (props) => {
   const [navSelection, setNavSelection] = useState([]);
   // console.log(props.navName);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     // Use useEffect to set navSelection based on props.navName
@@ -20,7 +21,7 @@ const HeaderExtra = (props) => {
       setNavSelection(Brands);
     } else if (props.navName === "Festivals") {
       setNavSelection(Festival);
-    } else if(props.navName === "Themes") {
+    } else if (props.navName === "Themes") {
       setNavSelection(Themes);
     }
   }, [props.navName]);
@@ -28,7 +29,7 @@ const HeaderExtra = (props) => {
   const data = navSelection.map((item) => {
     return (
       <div className="text-center space-y-2 cursor-pointer" key={item.id}>
-        <img
+        <LazyLoadImage
           className="h-[200px] w-[200px] object-cover rounded-md "
           src={`/images/NavImages/${item.AccessImg}`}
         />
@@ -52,7 +53,13 @@ const HeaderExtra = (props) => {
         } h-[300px] border-t-[1px]  top-[95px] left-0 w-[100%] z-0 bg-white `}
       >
         <section className="text-black  w-[100%] h-[100%] flex justify-evenly items-center">
-          <article className="font-Nunito font-bold space-x-8 flex  h-[220px]" onClick={() => navigate(`/collection/${props.navName}`)}>
+          <div className="opacity-[60%] italic flex justify-center items-center space-x-4">
+            <span>Available Products</span> <IoArrowForward />
+          </div>
+          <article
+            className="font-Nunito font-bold space-x-8 flex  h-[220px]"
+            onClick={() => navigate(`/collection/${props.navName}`)}
+          >
             {data}
           </article>
         </section>
