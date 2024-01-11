@@ -5,7 +5,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const BrandsCollection = () => {
+const ThemesCollection = () => {
   const [showCat, setShowCat] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
   const [products, setProducts] = useState([]);
@@ -81,7 +81,7 @@ const BrandsCollection = () => {
           className="uppercase italic font-extrabold font-Sans text-3xl w-[100%] text-center py-5  mt-[95px]"
           style={{ backgroundColor: "#F2F2F2" }}
         >
-          Brands
+          Theme
         </div>
         <div className="flex">
           <div className="sticky w-[25%] h-[100%] px-14 ml-4 bg-white  left-0 top-[10vh]">
@@ -250,4 +250,4 @@ const BrandsCollection = () => {
   );
 };
 
-export default BrandsCollection;
+export default ThemesCollection;

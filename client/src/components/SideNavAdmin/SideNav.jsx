@@ -26,7 +26,7 @@ const SideNav = () => {
           <article className="space-y-5 px-5">
             <div>
               <NavLink
-                to="/Admin"
+                to="/Admin/Dashboard"
                 className=" text-[18px] cursor-pointer rounded-md flex space-x-4  justify-start py-2 items-center"
               >
                 <FaHome className="ml-8" />
@@ -35,7 +35,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/All/Users"
+                to="/Admin/All/Users"
                 className="text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <FaUsers className="ml-8" />
@@ -44,7 +44,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Add/Accessories"
+                to="/Admin/Add/Accessories"
                 className=" text-[18px] cursor-pointer rounded-md flex space-x-4  justify-start py-2 items-center"
               >
                 <FaRing className="ml-8" />
@@ -53,7 +53,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Add/Brands"
+                to="/Admin/Add/Brands"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <TbBrandBooking className="ml-8" />
@@ -62,7 +62,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Add/Festivals"
+                to="/Admin/Add/Festivals"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <GiTemplarEye className="ml-8" />
@@ -71,7 +71,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Add/Theme"
+                to="/Admin/Add/Theme"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <HiTemplate className="ml-8" />
@@ -80,7 +80,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Orders"
+                to="/Admin/Orders"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <FaGift className="ml-8" />

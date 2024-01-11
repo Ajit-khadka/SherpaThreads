@@ -6,6 +6,7 @@ import { GrDeliver } from "react-icons/gr";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ProductInfo = () => {
   const { id } = useParams();
@@ -52,7 +53,7 @@ const ProductInfo = () => {
 
       <div className=" flex items-center h-[85vh] justify-center">
         <div className="h-[550px] w-[400px] overflow-hidden  bg-gray-400 rounded-md">
-          <img
+          <LazyLoadImage
             className="h-[550px] w-[400px] object-cover"
             src="/images/modelfont.jpg"
           />

@@ -9,7 +9,7 @@ import { MdEdit } from "react-icons/md";
 
 const AllAccess = () => {
   const [accessories, setAccessories] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const userFetch = async () => {
@@ -42,45 +42,49 @@ const AllAccess = () => {
       });
   };
 
-  let allAccessories = accessories.filter((accessory) => {
-    return search === '' ? accessory : accessory.productName.toLowerCase().includes(search.toLowerCase())
-  }).map((accessory, index) => {
-    const createdDate = new Date(accessory.createdAt);
-    const createDateformatted = createdDate.toLocaleString();
+  let allAccessories = accessories
+    .filter((accessory) => {
+      return search === ""
+        ? accessory
+        : accessory.productName.toLowerCase().includes(search.toLowerCase());
+    })
+    .map((accessory, index) => {
+      const createdDate = new Date(accessory.createdAt);
+      const createDateformatted = createdDate.toLocaleString();
 
-    const updatedDate = new Date(accessory.updatedAt);
-    const updateDateformatted = updatedDate.toLocaleString();
+      const updatedDate = new Date(accessory.updatedAt);
+      const updateDateformatted = updatedDate.toLocaleString();
 
-    return (
-      <tr key={accessory._id} className="">
-        <td data-th="P.No">{index + 1}</td>
-        <td data-th="Product Name">{accessory.productName}</td>
-        <td data-th="Product Price">{accessory.productPrice}</td>
-        <td data-th="Created At">{createDateformatted}</td>
-        <td data-th="Updated At">{updateDateformatted}</td>
-        <td data-th="Action" className="">
-          <div className="flex items-center space-x-4">
-            <div className="w-[20px] ">
-              <Link
-                className=""
-                to={`/Add/Accessories/update/${accessory._id}`}
+      return (
+        <tr key={accessory._id} className="">
+          <td data-th="P.No">{index + 1}</td>
+          <td data-th="Product Name">{accessory.productName}</td>
+          <td data-th="Product Price">{accessory.productPrice}</td>
+          <td data-th="Created At">{createDateformatted}</td>
+          <td data-th="Updated At">{updateDateformatted}</td>
+          <td data-th="Action" className="">
+            <div className="flex items-center space-x-4">
+              <div className="w-[20px] ">
+                <Link
+                  className=""
+                  to={`/Admin/Add/Accessories/update/${accessory._id}`}
+                >
+                  {" "}
+                  <MdEdit className="text-xl text-blue-500" />
+                </Link>
+              </div>
+
+              <button
+                className=" text-xl "
+                onClick={() => deleteUser(accessory._id)}
               >
-                {" "}
-                <MdEdit className="text-xl text-blue-500" />
-              </Link>
+                <MdDelete className="text-red-500" />
+              </button>
             </div>
-
-            <button
-              className=" text-xl "
-              onClick={() => deleteUser(accessory._id)}
-            >
-              <MdDelete  className="text-red-500"/>
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  });
+          </td>
+        </tr>
+      );
+    });
 
   return (
     <div className="flex bg-indigo-300 h-[100vh] w-[100vw] font-Nunito ">
@@ -95,7 +99,7 @@ const AllAccess = () => {
               <Link
                 className="px-3 text-white w-[200px] rounded-3xl flex items-center justify-center"
                 style={{ background: "#428bca" }}
-                to={"/Add/Accessories/create"}
+                to={"/Admin/Add/Accessories/create"}
               >
                 Add Accessory
               </Link>

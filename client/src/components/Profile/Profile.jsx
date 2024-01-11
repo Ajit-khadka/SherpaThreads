@@ -1,20 +1,18 @@
 import propTypes from "prop-types";
 import Favorites from "./Favorites";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Profile = (props) => {
-  // console.log("from",props.userData)
 
   const logOut = () => {
     window.open("http:///localhost:8000/logout", "_self");
   };
 
-  console.log(props.userData?.profileImage);
-
   return (
     <div className="">
       <div className="flex justify-center flex-col w-[100%] items-center ">
         <div className=" h-20 rounded-[50%] bg-white border-[1px] border-black border-opacity-20 overflow-hidden mt-5 w-20">
-          <img className="" src={props.userData?.profileImage} />
+          <LazyLoadImage className="" src={props.userData?.profileImage} />
         </div>
 
         <div className=" mt-3 font-Inter font-semibold">
