@@ -9,28 +9,30 @@ import axios from "axios";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ProductInfo = () => {
-  const { id } = useParams();
+  const { id, productSection } = useParams();
   const [userBuy, setUserBuy] = useState({
     buyerGender: "",
     productColour: "",
     productSize: "",
   });
   const [productInfo, setProductInfo] = useState({});
+  console.log(productInfo);
+  console.log(productSection);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios
-          .get(`http://localhost:8000/api/Add/Accessories/${id}`)
-          .then((res) => setProductInfo(res.data.accessoriesExists))
-          .catch((err) => console.log("error", err));
-      } catch (err) {
-        console.log("error", err);
+        const response = await axios.get(
+          `http://localhost:8000/api/Add/${productSection}/${id}`
+        );
+        setProductInfo(response.data[productSection.toLowerCase() + "Exists"]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, [id, productSection]);
 
   let aboutProduct = productInfo.productDescription?.map((items) => (
     <ul key={items.id} className="ProductInfo--productAbout mt-2">
@@ -48,7 +50,7 @@ const ProductInfo = () => {
   };
 
   return (
-    <div className="h-[100vh]" key={productInfo._id}>
+    <div className="h-[85vh] mt-[90px]" key={productInfo._id}>
       <SecondaryHeader />
 
       <div className=" flex items-center h-[85vh] justify-center">

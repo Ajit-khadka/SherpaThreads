@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const accessoriesSchema = new mongoose.Schema({
+const themesSchema = new mongoose.Schema({
     productName: String,
     productPrice: Number,
     productCategory: String,
@@ -16,6 +16,6 @@ const accessoriesSchema = new mongoose.Schema({
     productSection: String,
 },{timestamps: true})
 
-const accessoriesdb = mongoose.model("Accessories", accessoriesSchema)
+const themesdb = mongoose.model("Themes", themesSchema)
 
-module.exports = accessoriesdb
+module.exports = themesdb

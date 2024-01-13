@@ -1,34 +1,41 @@
-import SideNav from "../../components/SideNavAdmin/SideNav";
+import SideNav from "../../../components/SideNavAdmin/SideNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
-import "./AllUsers/AdminUser.css";
+import "../AllUsers/AdminUser.css";
+import { Link, useParams } from "react-router-dom";
+import { MdEdit } from "react-icons/md";
 
-const AdminUser = () => {
-  const [users, setUser] = useState([]);
+const AllAccess = () => {
+  const { section } = useParams();
+  const [product, setProduct] = useState([]);
   const [search, setSearch] = useState("");
+
+  console.log(section.toLowerCase() + "data");
 
   useEffect(() => {
     const userFetch = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/All/Users");
+        const res = await axios.get(`http://localhost:8000/api/Add/${section}`);
         // console.log(res.data.userdata);
-        setUser(res.data.userdata);
+        setProduct(res.data[section.toLowerCase() + "data"]);
       } catch (err) {
         console.log("Error", err);
       }
     };
 
     userFetch();
-  }, []);
+  }, [section]);
 
   const deleteUser = async (id) => {
     // console.log(id);
     await axios
-      .delete(`http://localhost:8000/api/All/Users/removeOne/${id}`)
+      .delete(`http://localhost:8000/api/Add/${section}/remove/${id}`)
       .then((res) => {
-        setUser((prevUser) => prevUser.filter((user) => user._id !== id));
+        setProduct((prevProduct) =>
+          prevProduct.filter((item) => item._id !== id)
+        );
         toast.success(res.data.msg, { position: "bottom-left" });
       })
       .catch((err) => {
@@ -36,27 +43,45 @@ const AdminUser = () => {
       });
   };
 
-  let allUsers = users
-    .filter((user) => {
-      return search === "" ? user : user.userName.toLowerCase().includes(search.toLowerCase());
+  let allProduct = product
+    .filter((items) => {
+      return search === ""
+        ? items
+        : items.productName.toLowerCase().includes(search.toLowerCase());
     })
-    .map((user, index) => {
-      const createdDate = new Date(user.createdAt);
+    .map((items, index) => {
+      const createdDate = new Date(items.createdAt);
       const createDateformatted = createdDate.toLocaleString();
 
+      const updatedDate = new Date(items.updatedAt);
+      const updateDateformatted = updatedDate.toLocaleString();
+
       return (
-        <tr key={user._id} className="">
-          <td data-th="S.No">{index + 1}</td>
-          <td data-th="Username">{user.userName}</td>
-          <td data-th="Email">{user.email}</td>
-          <td data-th="Account Created">{createDateformatted}</td>
+        <tr key={items._id} className="">
+          <td data-th="P.No">{index + 1}</td>
+          <td data-th="Product Name">{items.productName}</td>
+          <td data-th="Product Price">{items.productPrice}</td>
+          <td data-th="Created At">{createDateformatted}</td>
+          <td data-th="Updated At">{updateDateformatted}</td>
           <td data-th="Action" className="">
-            <button
-              className=" text-xl flex justify-center items-center"
-              onClick={() => deleteUser(user._id)}
-            >
-              <MdDelete className="text-red-500" />
-            </button>
+            <div className="flex items-center space-x-4">
+              <div className="w-[20px] ">
+                <Link
+                  className=""
+                  to={`/Admin/Add/${section}/update/${items._id}`}
+                >
+                  {" "}
+                  <MdEdit className="text-xl text-blue-500" />
+                </Link>
+              </div>
+
+              <button
+                className=" text-xl "
+                onClick={() => deleteUser(items._id)}
+              >
+                <MdDelete className="text-red-500" />
+              </button>
+            </div>
           </td>
         </tr>
       );
@@ -68,10 +93,17 @@ const AdminUser = () => {
 
       <div className="AllUser p-10 text-center space-y-8 shadow-xl  border bg-white h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl overflow-y-scroll">
         <div className="container">
-          <h1 className="text-black text-xl font-bold mb-5">User Accounts</h1>
+          <h1 className="text-black text-xl font-bold mb-5">{section}</h1>
 
           <div className="flex justify-center w-[100%] mb-7">
-            <div className="wrapper ">
+            <div className="wrapper flex space-x-5">
+              <Link
+                className="px-3 text-white w-[200px] rounded-3xl flex items-center justify-center"
+                style={{ background: "#428bca" }}
+                to={`/Admin/Add/${section}/create`}
+              >
+                Add Product
+              </Link>
               <div className="searchBar ">
                 <input
                   className=" placeholder-white text-white"
@@ -100,22 +132,24 @@ const AdminUser = () => {
               </div>
             </div>
           </div>
-          {users.length > 0 ? (
+
+          {product.length > 0 ? (
             <table className="rwd-table border-2 border-red-500 w-[100%]">
               <tbody className="">
                 <tr>
-                  <th>S.No.</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Account Created</th>
+                  <th>P.No.</th>
+                  <th>Product Name</th>
+                  <th>Product Price (Rupees)</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
                   <th>Action</th>
                 </tr>
-                {allUsers}
+                {allProduct}
               </tbody>
             </table>
           ) : (
             <div className="flex justify-center items-center w-[100%] h-[450px]">
-              <div>No user Account created</div>{" "}
+              <div>No Product created</div>{" "}
             </div>
           )}
         </div>
@@ -124,4 +158,4 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default AllAccess;

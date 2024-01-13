@@ -3,22 +3,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
-import "../AllUsers/AdminUser.css";
-import { Link } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
+import "./AdminUser.css";
 
-const AllAccess = () => {
-  const [accessories, setAccessories] = useState([]);
+const AdminUser = () => {
+  const [users, setUser] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const userFetch = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:8000/api/Add/Accessories"
-        );
+        const res = await axios.get("http://localhost:8000/api/All/Users");
         // console.log(res.data.userdata);
-        setAccessories(res.data.accessoriesdata);
+        setUser(res.data.userdata);
       } catch (err) {
         console.log("Error", err);
       }
@@ -30,11 +26,9 @@ const AllAccess = () => {
   const deleteUser = async (id) => {
     // console.log(id);
     await axios
-      .delete(`http://localhost:8000/api/Add/Accessories/remove/${id}`)
+      .delete(`http://localhost:8000/api/All/Users/removeOne/${id}`)
       .then((res) => {
-        setAccessories((prevAccessories) =>
-          prevAccessories.filter((item) => item._id !== id)
-        );
+        setUser((prevUser) => prevUser.filter((user) => user._id !== id));
         toast.success(res.data.msg, { position: "bottom-left" });
       })
       .catch((err) => {
@@ -42,45 +36,29 @@ const AllAccess = () => {
       });
   };
 
-  let allAccessories = accessories
-    .filter((accessory) => {
+  let allUsers = users
+    .filter((user) => {
       return search === ""
-        ? accessory
-        : accessory.productName.toLowerCase().includes(search.toLowerCase());
+        ? user
+        : user.userName.toLowerCase().includes(search.toLowerCase());
     })
-    .map((accessory, index) => {
-      const createdDate = new Date(accessory.createdAt);
+    .map((user, index) => {
+      const createdDate = new Date(user.createdAt);
       const createDateformatted = createdDate.toLocaleString();
 
-      const updatedDate = new Date(accessory.updatedAt);
-      const updateDateformatted = updatedDate.toLocaleString();
-
       return (
-        <tr key={accessory._id} className="">
-          <td data-th="P.No">{index + 1}</td>
-          <td data-th="Product Name">{accessory.productName}</td>
-          <td data-th="Product Price">{accessory.productPrice}</td>
-          <td data-th="Created At">{createDateformatted}</td>
-          <td data-th="Updated At">{updateDateformatted}</td>
+        <tr key={user._id} className="">
+          <td data-th="S.No">{index + 1}</td>
+          <td data-th="Username">{user.userName}</td>
+          <td data-th="Email">{user.email}</td>
+          <td data-th="Account Created">{createDateformatted}</td>
           <td data-th="Action" className="">
-            <div className="flex items-center space-x-4">
-              <div className="w-[20px] ">
-                <Link
-                  className=""
-                  to={`/Admin/Add/Accessories/update/${accessory._id}`}
-                >
-                  {" "}
-                  <MdEdit className="text-xl text-blue-500" />
-                </Link>
-              </div>
-
-              <button
-                className=" text-xl "
-                onClick={() => deleteUser(accessory._id)}
-              >
-                <MdDelete className="text-red-500" />
-              </button>
-            </div>
+            <button
+              className=" text-xl flex justify-center items-center"
+              onClick={() => deleteUser(user._id)}
+            >
+              <MdDelete className="text-red-500" />
+            </button>
           </td>
         </tr>
       );
@@ -92,17 +70,10 @@ const AllAccess = () => {
 
       <div className="AllUser p-10 text-center space-y-8 shadow-xl  border bg-white h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl overflow-y-scroll">
         <div className="container">
-          <h1 className="text-black text-xl font-bold mb-5">Accessories</h1>
+          <h1 className="text-black text-xl font-bold mb-5">User Accounts</h1>
 
           <div className="flex justify-center w-[100%] mb-7">
-            <div className="wrapper flex space-x-5">
-              <Link
-                className="px-3 text-white w-[200px] rounded-3xl flex items-center justify-center"
-                style={{ background: "#428bca" }}
-                to={"/Admin/Add/Accessories/create"}
-              >
-                Add Accessory
-              </Link>
+            <div className="wrapper ">
               <div className="searchBar ">
                 <input
                   className=" placeholder-white text-white"
@@ -131,24 +102,22 @@ const AllAccess = () => {
               </div>
             </div>
           </div>
-
-          {accessories.length > 0 ? (
+          {users.length > 0 ? (
             <table className="rwd-table border-2 border-red-500 w-[100%]">
               <tbody className="">
                 <tr>
-                  <th>P.No.</th>
-                  <th>Product Name</th>
-                  <th>Product Price (Rupees)</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
+                  <th>S.No.</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Account Created</th>
                   <th>Action</th>
                 </tr>
-                {allAccessories}
+                {allUsers}
               </tbody>
             </table>
           ) : (
             <div className="flex justify-center items-center w-[100%] h-[450px]">
-              <div>No Accessories created</div>{" "}
+              <div>No user Account created</div>{" "}
             </div>
           )}
         </div>
@@ -157,4 +126,4 @@ const AllAccess = () => {
   );
 };
 
-export default AllAccess;
+export default AdminUser;

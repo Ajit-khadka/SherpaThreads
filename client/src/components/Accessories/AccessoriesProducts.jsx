@@ -45,7 +45,9 @@ const AccessoriesProducts = (props) => {
         onMouseOver={mouseOverHandler}
         onMouseOut={mouseOutHandler}
       >
-        <Link to={`/collection/ProductInfo/${props.product._id}`}>
+        <Link
+          to={`/collection/${props.product.productSection}/${props.product._id}`}
+        >
           <div
             className="h-[400px] w-[300px] relative  rounded-md overflow-hidden"
             // onMouseOver={onImageHandler}
@@ -106,6 +108,7 @@ AccessoriesProducts.propTypes = {
     id: PropTypes.number,
     fontImg: PropTypes.string,
     backImg: PropTypes.string,
+    productSection: PropTypes.string,
     productName: PropTypes.string,
     productPrice: PropTypes.number,
     _id: PropTypes.string,

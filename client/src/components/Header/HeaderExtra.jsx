@@ -42,6 +42,11 @@ const HeaderExtra = (props) => {
     event.stopPropagation();
   };
 
+  let navigationHandler = () => {
+    props.close;
+    navigate(`/collection/${props.navName}`);
+  };
+
   return (
     <div className="" onClick={props.close}>
       <div
@@ -58,7 +63,7 @@ const HeaderExtra = (props) => {
           </div>
           <article
             className="font-Nunito font-bold space-x-8 flex  h-[220px]"
-            onClick={() => navigate(`/collection/${props.navName}`)}
+            onClick={navigationHandler}
           >
             {data}
           </article>
