@@ -1,12 +1,10 @@
 import AdminLand from "../AdminLand";
-import AdminTheme from "../AdminTheme";
-import AdminFestiv from "../AdminFestiv";
-import AdminBrand from "../AdminBrand";
-import AdminUser from "../AdminUser";
+import AdminUser from "../AllUsers/AdminUser";
 import Order from "../../Order/Order";
-import AllAcces from "../Acessories/AllAcces";
-import UpdateAcces from "../Acessories/UpdateAcces";
-import CreateAcces from "../Acessories/CreateAcces";
+import AllAcces from "../AdminProducts/AllProducts";
+import UpdateAcces from "../AdminProducts/UpdateProducts";
+import CreateAcces from "../AdminProducts/CreateProducts";
+
 import { Route, Routes } from "react-router-dom";
 
 const AdminRoutes = () => {
@@ -14,13 +12,10 @@ const AdminRoutes = () => {
     <div>
       <Routes>
         <Route path="Dashboard" element={<AdminLand />} />
-        <Route path="/Add/Accessories" element={<AllAcces />} />
-        <Route path="/Add/Accessories/create" element={<CreateAcces />} />
-        <Route path="/Add/Accessories/update/:id" element={<UpdateAcces />} />
-        <Route path="/Add/Brands" element={<AdminBrand />} />
-        <Route path="/Add/Festivals" element={<AdminFestiv />} />
-        <Route path="/Add/Theme" element={<AdminTheme />} />
         <Route path="/All/Users" element={<AdminUser />} />
+        <Route path="/Add/:section" element={<AllAcces />} />
+        <Route path="/Add/:section/create" element={<CreateAcces />} />
+        <Route path="/Add/:section/update/:id" element={<UpdateAcces />} />
         <Route path="/Orders" element={<Order />} />
       </Routes>
     </div>

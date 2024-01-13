@@ -4,11 +4,8 @@ import Home from "./pages/Home";
 import Error from "./pages/Error";
 import { Routes, Route } from "react-router-dom";
 import ProductInfo from "./pages/Products/ProductInfo";
-import AccessoriesCollection from "./pages/Products/AccessoriesCollection";
-import BrandsCollection from "./pages/Products/BrandsCollection";
-import FestivalsCollection from "./pages/Products/FestivalsCollection";
+import AccessoriesCollection from "./pages/Products/ProductCollection";
 import { Suspense, lazy } from "react";
-import ThemesCollection from "./pages/Products/ThemesCollection";
 
 const AdminRoutes = lazy(() => import("./pages/Admin/AdminRoute/AdminRoutes"));
 
@@ -18,14 +15,8 @@ const App = () => {
       <Route path="/" element={<MainHeader />}>
         <Route index element={<Home />} />
       </Route>
-      <Route
-        path="/collection/Accessories"
-        element={<AccessoriesCollection />}
-      />
-      <Route path="/collection/Brands" element={<BrandsCollection />} />
-      <Route path="/collection/Festivals" element={<FestivalsCollection />} />
-      <Route path="/collection/Themes" element={<ThemesCollection />} />
-      <Route path="/collection/ProductInfo/:id" element={<ProductInfo />} />
+      <Route path="/collection/:section" element={<AccessoriesCollection />} />
+      <Route path="/collection/:productSection/:id" element={<ProductInfo />} />
       <Route path="*" element={<Error />} />
 
       <Route

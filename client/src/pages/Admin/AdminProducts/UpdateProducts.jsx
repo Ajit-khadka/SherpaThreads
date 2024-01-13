@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideNav from "../../../components/SideNavAdmin/SideNav";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
@@ -9,11 +9,16 @@ import { TbGift } from "react-icons/tb";
 import { GrDeliver } from "react-icons/gr";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const AdminAcces = () => {
-  const [newDescription, setDescription] = useState("");
+const UpdateAcces = () => {
   const navigate = useNavigate();
+  const { id, section } = useParams();
+  const [newDescription, setDescription] = useState("");
+
+  console.log(section.toLowerCase() + "Exists");
+
   const [productData, setProductData] = useState({
     productName: "",
     productPrice: 0,
@@ -28,6 +33,24 @@ const AdminAcces = () => {
     },
     productImages: [],
   });
+
+  console.log(productData?.productImages);
+
+  useEffect(() => {
+    const checkExists = async () => {
+      try {
+        await axios
+          .get(`http://localhost:8000/api/Add/${section}/${id}`)
+          .then((res) =>
+            setProductData(res.data[section.toLowerCase() + "Exists"])
+          )
+          .catch((err) => console.log("error", err));
+      } catch (err) {
+        console.log("error", err);
+      }
+    };
+    checkExists();
+  }, [id, section]);
 
   let addDescription = () => {
     if (newDescription.trim() !== "" && newDescription.length > 0) {
@@ -88,7 +111,6 @@ const AdminAcces = () => {
 
   let imageHandler = (event) => {
     if (productData.productImages.length < 2) {
-      // console.log(event.target.files[0])
       setProductData((prevProductData) => {
         return {
           ...prevProductData,
@@ -124,7 +146,8 @@ const AdminAcces = () => {
         onClick={() => deleteImg(image.id)}
       />
       <img
-        src={URL.createObjectURL(image.Image[0])}
+        // src={URL.createObjectURL(image.Image)}
+        src="test"
         alt={`Product Image ${image.id}`}
         style={{ maxWidth: "200px", maxHeight: "200px", marginRight: "30px" }}
       />
@@ -133,13 +156,19 @@ const AdminAcces = () => {
 
   let productDataHandler = async (e) => {
     e.preventDefault();
-
-    if (productData.productDescription.length > 0) {
+    console.log(productData);
+    if (
+      productData.productDescription.length > 0 &&
+      productData.productImages.length > 0
+    ) {
       await axios
-        .post("http://localhost:8000/api/Add/Accessories/create", productData)
+        .put(
+          `http://localhost:8000/api/Add/${section}/update/${id}`,
+          productData
+        )
         .then((res) => {
           toast.success(res.data.msg, { position: "bottom-left" });
-          navigate("/Admin/Add/Accessories");
+          navigate(`/Admin/Add/${section}`);
         })
         .catch((err) => console.log("error", err));
     } else {
@@ -147,12 +176,176 @@ const AdminAcces = () => {
     }
   };
 
+  //Renders
+
+  let options = "";
+  if (section === "Accessories") {
+    options = (
+      <>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Products Section
+          </label>
+          <select
+            id="product_Brand"
+            onChange={formHandler}
+            value={productData.productBrand}
+            name="productBrand"
+            className="w-[100px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Socks">Socks</option>
+            <option value="Stickers">Stickers</option>
+            <option value="WallArts">WallArts</option>
+            <option value="Blankets">Blankets</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Product Category
+          </label>
+          <select
+            id="product_Category"
+            onChange={formHandler}
+            value={productData.productCategory}
+            name="productCategory"
+            className="w-[100px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Anime">Anime</option>
+            <option value="Cartoon">Cartoon</option>
+            <option value="Movie">Movie</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+      </>
+    );
+  } else if (section === "Brands") {
+    options = (
+      <>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Products Brand
+          </label>
+          <select
+            id="product_Brand"
+            onChange={formHandler}
+            value={productData.productBrand}
+            name="productBrand"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Aadarsha">Aadarsha</option>
+            <option value="Saundarya">Saundarya</option>
+            <option value="Aalur">Aalur</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Product Section
+          </label>
+          <select
+            id="product_Category"
+            onChange={formHandler}
+            value={productData.productCategory}
+            name="productCategory"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Pants">Pants</option>
+            <option value="Shirts">Shirts</option>
+            <option value="Coats">Coats</option>
+            <option value="Sweathers">Sweathers</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+      </>
+    );
+  } else if (section === "Festivals") {
+    options = (
+      <>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Products Brand
+          </label>
+          <select
+            id="product_Brand"
+            onChange={formHandler}
+            value={productData.productBrand}
+            name="productBrand"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Aadarsha">Aadarsha</option>
+            <option value="Saundarya">Saundarya</option>
+            <option value="Aalur">Aalur</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Product Section
+          </label>
+          <select
+            id="product_Category"
+            onChange={formHandler}
+            value={productData.productCategory}
+            name="productCategory"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="DhakaTopi">Dhaka Topi</option>
+            <option value="DauraSuruwal">Daura Suruwal</option>
+            <option value="GunyuCholo">Gunyu Cholo</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+      </>
+    );
+  } else {
+    options = (
+      <>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Products Brand
+          </label>
+          <select
+            id="product_Brand"
+            onChange={formHandler}
+            value={productData.productBrand}
+            name="productBrand"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Aadarsha">Aadarsha</option>
+            <option value="Saundarya">Saundarya</option>
+            <option value="Aalur">Aalur</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+        <section className="flex">
+          <label htmlFor="product_Brand" className="w-[200px]">
+            Product Theme
+          </label>
+          <select
+            id="product_Category"
+            onChange={formHandler}
+            value={productData.productCategory}
+            name="productCategory"
+            className="w-[120px] border-2 rounded-md border-black p-1"
+          >
+            <option value="Holiday">Holiday</option>
+            <option value="Working">Working</option>
+            <option value="Party">Party</option>
+            <option value="Beach">Beach</option>
+            <option value="Others">Others</option>
+          </select>
+        </section>
+      </>
+    );
+  }
+
   return (
     <div className="flex bg-indigo-300 h-[100vh] font-Nunito">
       <SideNav />
       <div className="AllUser p-10 space-y-8 shadow-xl bg-white h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl overflow-y-scroll">
         <h1 className="text-black text-xl font-bold text-center mb-5">
-          Add Accessories
+          Update Product
         </h1>
         <div className="">
           <form className="space-y-8" onSubmit={productDataHandler}>
@@ -211,41 +404,8 @@ const AdminAcces = () => {
                 <div className=""> {aboutProduct}</div>
               </div>
             </div>
-            <section className="flex">
-              <label htmlFor="product_Brand" className="w-[200px]">
-                Products Section
-              </label>
-              <select
-                id="product_Brand"
-                onChange={formHandler}
-                value={productData.productBrand}
-                name="productBrand"
-                className="w-[100px] border-2 rounded-md border-black p-1"
-              >
-                <option value="Socks">Socks</option>
-                <option value="Stickers">Stickers</option>
-                <option value="WallArts">WallArts</option>
-                <option value="Blankets">Blankets</option>
-                <option value="Others">Others</option>
-              </select>
-            </section>
-            <section className="flex">
-              <label htmlFor="product_Brand" className="w-[200px]">
-                Product Category
-              </label>
-              <select
-                id="product_Category"
-                onChange={formHandler}
-                value={productData.productCategory}
-                name="productCategory"
-                className="w-[100px] border-2 rounded-md border-black p-1"
-              >
-                <option value="Anime">Anime</option>
-                <option value="Cartoon">Cartoon</option>
-                <option value="Movie">Movie</option>
-                <option value="Others">Others</option>
-              </select>
-            </section>
+
+            {options}
 
             <section className="">
               <div className="flex">
@@ -336,7 +496,6 @@ const AdminAcces = () => {
                     type="file"
                     accept="image/*"
                     multiple
-                    required
                     id="product_img"
                     name="Image"
                     onChange={imageHandler}
@@ -350,7 +509,7 @@ const AdminAcces = () => {
                 className="px-5 py-2 uppercase text-white rounded-md font-semibold "
                 style={{ background: "#428bca" }}
               >
-                Submit
+                Update
               </button>
             </div>
           </form>
@@ -360,4 +519,4 @@ const AdminAcces = () => {
   );
 };
 
-export default AdminAcces;
+export default UpdateAcces;

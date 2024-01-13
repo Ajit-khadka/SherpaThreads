@@ -71,7 +71,7 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Admin/Add/Theme"
+                to="/Admin/Add/Themes"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <HiTemplate className="ml-8" />
