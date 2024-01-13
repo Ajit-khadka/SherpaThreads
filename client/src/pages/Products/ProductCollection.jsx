@@ -1,4 +1,4 @@
-import AccessoriesProducts from "../../components/Accessories/AccessoriesProducts";
+import AccessoriesProducts from "../../components/Accessories/Products";
 import SecondaryHeader from "../../components/Header/SecondaryHeader";
 import { RxMixerHorizontal } from "react-icons/rx";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
