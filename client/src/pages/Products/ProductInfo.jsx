@@ -16,9 +16,7 @@ const ProductInfo = () => {
     productSize: "",
   });
   const [productInfo, setProductInfo] = useState({});
-  console.log(productInfo);
-  console.log(productSection);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
