@@ -5,12 +5,33 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer"
 
 const AccessoriesCollection = () => {
   const { section } = useParams();
   const [showCat, setShowCat] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
   const [products, setProducts] = useState([]);
+
+  const navigate = useNavigate();
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/login", {
+        withCredentials: true,
+      });
+
+      console.log("response", response);
+    } catch (error) {
+    console.log(error)
+      navigate("/err");
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   // console.log(section.toLowerCase() + "data");
 
@@ -677,6 +698,7 @@ const AccessoriesCollection = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

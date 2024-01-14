@@ -6,6 +6,7 @@ const { getAllAccessories,createAccessories, getOneAccessories, deleteAccessorie
 const { getAllBrands, createBrands,  getOneBrands, deleteBrands, updateBrands, } = require('../controllers/brandsController')
 const { getAllFestivals, createFestivals,  getOneFestivals, deleteFestivals, updateFestivals, } = require('../controllers/festivalsController')
 const { getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes, } = require('../controllers/themesController')
+const {getAdmin} = require('../controllers/adminController')
 
 router.use(
     cors({
@@ -14,7 +15,13 @@ router.use(
         methods:"GET,POST,PUT,DELETE"
     }))
 
-//User
+
+//getAdmin
+// router.post('/Admin', createAdmin)
+router.post('/Admin', getAdmin)
+// router.post('/Admin/logout', logoutAdmin)
+
+//AllUser
 router.get('/All/Users' , getAll)   
 router.get('/All/Users/getOne/:userId' , getOne)   
 router.delete('/All/Users/removeOne/:userId' , deleteUser)   

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate } from "react-router-dom";
 
 const ProductInfo = () => {
   const { id, productSection } = useParams();
@@ -16,7 +17,24 @@ const ProductInfo = () => {
     productSize: "",
   });
   const [productInfo, setProductInfo] = useState({});
- 
+
+  const navigate = useNavigate();
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/login", {
+        withCredentials: true,
+      });
+
+      console.log("response", response);
+    } catch (error) {
+      console.log(error);
+      navigate("/err");
+    }
+  };
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,6 +48,7 @@ const ProductInfo = () => {
     };
 
     fetchData();
+    getUser();
   }, [id, productSection]);
 
   let aboutProduct = productInfo.productDescription?.map((items) => (

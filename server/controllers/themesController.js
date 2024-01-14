@@ -63,9 +63,9 @@ const deleteThemes = async(req,res) => {
 const updateThemes = async(req,res) => {
     try{
         const userId = req.params.userId
-        console.log(userId)
+        // console.log(userId)
         const themesdata = await themesModel.findByIdAndUpdate(userId, {$set: req.body}, {new:true})
-        console.log(req.body)
+        // console.log(req.body)
         if(!themesdata){
            return res.status(404).json({msg : "Themes Data not found"})
         } 

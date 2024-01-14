@@ -80,11 +80,11 @@ const SideNav = () => {
             </div>
             <div>
               <NavLink
-                to="/Admin/Orders"
+                to="/Admin/GiveAway"
                 className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center "
               >
                 <FaGift className="ml-8" />
-                <span>Orders</span>
+                <span>Give Away</span>
               </NavLink>
             </div>
             <div>
