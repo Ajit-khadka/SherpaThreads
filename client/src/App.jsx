@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Error from "./pages/Error";
 import { Routes, Route } from "react-router-dom";
 import ProductInfo from "./pages/Products/ProductInfo";
-import AccessoriesCollection from "./pages/Products/ProductCollection";
+import ProductCollection from "./pages/Products/ProductCollection";
 import { Suspense, lazy } from "react";
 
 const AdminRoutes = lazy(() => import("./pages/Admin/AdminRoute/AdminRoutes"));
@@ -15,7 +15,7 @@ const App = () => {
       <Route path="/" element={<MainHeader />}>
         <Route index element={<Home />} />
       </Route>
-      <Route path="/collection/:section" element={<AccessoriesCollection />} />
+      <Route path="/collection/:section" element={<ProductCollection />} />
       <Route path="/collection/:productSection/:id" element={<ProductInfo />} />
       <Route path="*" element={<Error />} />
 

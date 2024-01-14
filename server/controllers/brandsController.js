@@ -63,9 +63,9 @@ const deleteBrands = async(req,res) => {
 const updateBrands = async(req,res) => {
     try{
         const userId = req.params.userId
-        console.log(userId)
+        // console.log(userId)
         const brandsdata = await brandsModel.findByIdAndUpdate(userId, {$set: req.body}, {new:true})
-        console.log(req.body)
+        // console.log(req.body)
         if(!brandsdata){
            return res.status(404).json({msg : "Brand Data not found"})
         } 

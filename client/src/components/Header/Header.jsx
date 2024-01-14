@@ -3,10 +3,10 @@ import { LuUser2 } from "react-icons/lu";
 import { GrFavorite } from "react-icons/gr";
 import { IoBagHandleOutline } from "react-icons/io5";
 // import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "../Login/Login";
 import HeaderExtra from "./HeaderExtra";
-
+import axios from "axios";
 import QuickBag from "../QuickBag/QuickBag";
 
 const Header = () => {
@@ -15,6 +15,7 @@ const Header = () => {
   const [navClick, setNavClick] = useState(false);
   const [quickBag, setQuickBag] = useState(false);
   const [extraHeader, setExtraHeader] = useState();
+  const [userData, setUserData] = useState({});
 
   let toggleNavlink = (navName) => {
     setNavClick(!navClick);
@@ -28,6 +29,33 @@ const Header = () => {
       setExtraHeader(navName);
     }
   };
+
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/login", {
+        withCredentials: true,
+      });
+      // console.log("response", res);
+      setUserData(res.data.user);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        console.log("Bad Request: Invalid parameters");
+      }
+      return console.log("Axios Error:", err);
+    }
+  };
+
+  useEffect(() => {
+    // console.log("running");
+
+    if (Object.keys(userData).length < 1) {
+      setOpenLoginPop(true);
+    }
+
+    let interval = setInterval(getUser(), 30000);
+
+    return () => clearInterval(interval);
+  }, [userData]);
 
   //go to top
   const scrollToTop = () => {
@@ -58,14 +86,26 @@ const Header = () => {
 
   return (
     <div className=" flex flex-col  relative  z-10 ">
-      <Login
-        open={openLoginPop}
-        // userData={userData}
-        // googleLogin={() => {
-        //   loginwithGoogle();
-        // }}
-        close={() => setOpenLoginPop(false)}
-      />
+      {Object.keys(userData).length < 1 ? (
+        <Login
+          open={openLoginPop}
+          // userData={userData}
+          // googleLogin={() => {
+          //   loginwithGoogle();
+          // }}
+          close={() => setOpenLoginPop(true)}
+        />
+      ) : (
+        <Login
+          open={openLoginPop}
+          // userData={userData}
+          // googleLogin={() => {
+          //   loginwithGoogle();
+          // }}
+          close={() => setOpenLoginPop(false)}
+        />
+      )}
+
       <QuickBag open={quickBag} close={() => setQuickBag(false)} />
 
       <div
