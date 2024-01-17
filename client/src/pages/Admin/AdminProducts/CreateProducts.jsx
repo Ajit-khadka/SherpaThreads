@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideNav from "../../../components/SideNavAdmin/SideNav";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
@@ -148,6 +148,17 @@ const AdminAcces = () => {
       toast.error("Please fill up all the data", { position: "bottom-left" });
     }
   };
+
+  useEffect(() => {
+    if (
+      section != "Accessories" &&
+      section != "Brands" &&
+      section != "Festivals" &&
+      section != "Themes"
+    ) {
+      navigate("/err");
+    }
+  });
 
   //Renders
 

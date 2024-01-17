@@ -9,6 +9,8 @@ const AdminUser = () => {
   const [users, setUser] = useState([]);
   const [search, setSearch] = useState("");
 
+  console.log(users[0]);
+
   useEffect(() => {
     const userFetch = async () => {
       try {
@@ -24,7 +26,6 @@ const AdminUser = () => {
   }, []);
 
   const deleteUser = async (id) => {
-    // console.log(id);
     await axios
       .delete(`http://localhost:8000/api/All/Users/removeOne/${id}`)
       .then((res) => {
@@ -39,7 +40,7 @@ const AdminUser = () => {
   let allUsers = users
     .filter((user) => {
       return search === ""
-        ? user
+        ? user.role != "Admin"
         : user.userName.toLowerCase().includes(search.toLowerCase());
     })
     .map((user, index) => {

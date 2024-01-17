@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     userName: String,
     email: String,
     profileImage: String,
+    role: {
+        type: String,
+        default: 'User',
+    },
 },{timestamps:true})
 
 

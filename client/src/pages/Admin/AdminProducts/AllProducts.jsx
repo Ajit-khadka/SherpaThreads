@@ -4,18 +4,25 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import "../AllUsers/AdminUser.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 
 const AllAccess = () => {
   const { section } = useParams();
   const [product, setProduct] = useState([]);
   const [search, setSearch] = useState("");
-
-  console.log(section.toLowerCase() + "data");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userFetch = async () => {
+      if (
+        section != "Accessories" &&
+        section != "Brands" &&
+        section != "Festivals" &&
+        section != "Themes"
+      ) {
+        navigate("/err");
+      }
       try {
         const res = await axios.get(`http://localhost:8000/api/Add/${section}`);
         // console.log(res.data.userdata);

@@ -4,14 +4,27 @@ import { TbBrandBooking } from "react-icons/tb";
 import { FaRing } from "react-icons/fa";
 import { GiTemplarEye } from "react-icons/gi";
 import "./AllUsers/AdminUser.css";
+import { MdLogout } from "react-icons/md";
+import PropTypes from "prop-types";
 
-const AdminLand = () => {
+const AdminLand = ({ logout }) => {
   return (
     <>
       <div className="flex bg-indigo-300 h-[100vh] font-Nunito">
         <SideNav />
         <div className="AllUser p-10 text-center space-y-8 shadow-xl  border back h-[95vh] w-[100%] my-4 mr-4 rounded-tr-xl rounded-br-xl overflow-y-scroll">
-          <h1 className="text-black text-xl font-bold mb-5">Dashboard</h1>
+          <div className="flex space-x-5 justify-center">
+            <h1 className="text-black text-xl font-bold ">Dashboard</h1>
+
+            <div
+              className=" text-[18px] cursor-pointer  rounded-md flex space-x-2  justify-start items-center "
+              onClick={() => logout()}
+            >
+              <span>Logout</span>
+              <MdLogout className="" />
+            </div>
+          </div>
+
           <article className="flex justify-around flex-wrap gap-y-5 self-start">
             <section>
               <div className="h-[120px] w-[230px] rounded-xl shadow-md bg-white flex justify-around items-center">
@@ -70,6 +83,10 @@ const AdminLand = () => {
       </div>
     </>
   );
+};
+
+AdminLand.propTypes = {
+  logout: PropTypes.func,
 };
 
 export default AdminLand;

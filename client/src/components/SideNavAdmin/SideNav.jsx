@@ -1,7 +1,6 @@
 import { FaHome } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
+import { Link, NavLink } from "react-router-dom";
 import { FaGift } from "react-icons/fa6";
 import { TbBrandBooking } from "react-icons/tb";
 import { FaRing } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { HiTemplate } from "react-icons/hi";
 import "./SideNav.css";
 
 const SideNav = () => {
+ 
   return (
     <div className="flex justify-start">
       <section
@@ -20,7 +20,7 @@ const SideNav = () => {
       >
         <main className="space-y-8 text-center">
           <div className="cursor-pointer font-Roboto italic text-[22px] font-bold mt-8 ">
-            SherpaThreads
+            <Link to="/Admin/Dashboard">SherpaThreads</Link>
           </div>
 
           <article className="space-y-5 px-5">
@@ -86,12 +86,6 @@ const SideNav = () => {
                 <FaGift className="ml-8" />
                 <span>Give Away</span>
               </NavLink>
-            </div>
-            <div>
-              <div className=" text-[18px] cursor-pointer  rounded-md flex space-x-4  justify-start py-2 items-center ">
-                <MdLogout className="ml-8" />
-                <span>Logout</span>
-              </div>
             </div>
           </article>
         </main>

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import PropTypes from 'prop-types'
 
-const AdminLogin = () => {
+const AdminLogin = ({login}) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -18,17 +19,18 @@ const AdminLogin = () => {
 
   let LoginHandler = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     await axios
       .post("http://localhost:8000/api/Admin", formData)
       .then((res) => {
-        console.log("check", res);
+        // console.log("check", res);
         if (res.data.msg === "Matched") {
           toast.success("Logged in Successfully", { position: "bottom-left" });
+          login()
           navigate("/Admin/Dashboard");
         } else {
           toast.error(res.data.msg, { position: "bottom-left" });
-          navigate("/");
+         
         }
       })
       .catch((err) => {
@@ -81,4 +83,12 @@ const AdminLogin = () => {
   );
 };
 
+AdminLogin.propTypes = {
+  user: PropTypes.bool,
+  login: PropTypes.func,
+  logout: PropTypes.func,
+};
+
 export default AdminLogin;
+
+
