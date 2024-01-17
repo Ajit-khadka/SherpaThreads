@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProductInfo = () => {
   const { id, productSection } = useParams();
+  const navigate = useNavigate();
   const [userBuy, setUserBuy] = useState({
     buyerGender: "",
     productColour: "",
@@ -18,7 +19,14 @@ const ProductInfo = () => {
   });
   const [productInfo, setProductInfo] = useState({});
 
-  const navigate = useNavigate();
+  if (
+    productSection != "Accessories" &&
+    productSection != "Brands" &&
+    productSection != "Festivals" &&
+    productSection != "Themes"
+  ) {
+    navigate("/err");
+  }
 
   const getUser = async () => {
     try {
@@ -32,8 +40,6 @@ const ProductInfo = () => {
       navigate("/err");
     }
   };
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     const fetchData = async () => {

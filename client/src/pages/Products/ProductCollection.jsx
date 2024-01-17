@@ -13,8 +13,13 @@ const AccessoriesCollection = () => {
   const [showCat, setShowCat] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
   const [products, setProducts] = useState([]);
-
   const navigate = useNavigate();
+
+
+  if(section != "Accessories" && section != "Brands" && section != "Festivals" && section != "Themes"){
+    navigate('/err');
+  }
+
 
   const getUser = async () => {
     try {

@@ -34,9 +34,24 @@ const UpdateAcces = () => {
     productImages: [],
   });
 
-  console.log(productData?.productImages);
+  if (
+    section != "Accessories" &&
+    section != "Brands" &&
+    section != "Festivals" &&
+    section != "Themes"
+  ) {
+    navigate("/err");
+  }
 
   useEffect(() => {
+    if (
+      section != "Accessories" &&
+      section != "Brands" &&
+      section != "Festivals" &&
+      section != "Themes"
+    ) {
+      navigate("/err");
+    }
     const checkExists = async () => {
       try {
         await axios
