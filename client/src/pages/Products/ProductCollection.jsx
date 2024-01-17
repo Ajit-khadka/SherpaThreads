@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer"
+import Footer from "../../components/Footer";
 
 const AccessoriesCollection = () => {
   const { section } = useParams();
@@ -15,21 +15,22 @@ const AccessoriesCollection = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-
-  if(section != "Accessories" && section != "Brands" && section != "Festivals" && section != "Themes"){
-    navigate('/err');
+  if (
+    section != "Accessories" &&
+    section != "Brands" &&
+    section != "Festivals" &&
+    section != "Themes"
+  ) {
+    navigate("/err");
   }
-
 
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/login", {
+      await axios.get("http://localhost:8000/login", {
         withCredentials: true,
       });
-
-      console.log("response", response);
     } catch (error) {
-    console.log(error)
+      console.log(error);
       navigate("/err");
     }
   };
@@ -703,7 +704,7 @@ const AccessoriesCollection = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

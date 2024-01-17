@@ -7,6 +7,7 @@ const { getAllBrands, createBrands,  getOneBrands, deleteBrands, updateBrands, }
 const { getAllFestivals, createFestivals,  getOneFestivals, deleteFestivals, updateFestivals, } = require('../controllers/festivalsController')
 const { getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes, } = require('../controllers/themesController')
 const {getAdmin} = require('../controllers/adminController')
+const {createGiveAway, getAllGiveAway, removeAllGive} = require('../controllers/giveController')
 
 router.use(
     cors({
@@ -54,6 +55,12 @@ router.get('/Add/Themes', getAllThemes)
 router.get('/Add/Themes/:userId', getOneThemes)
 router.delete('/Add/Themes/remove/:userId', deleteThemes)
 router.put('/Add/Themes/update/:userId', updateThemes)
+
+//GiveAway
+
+router.post('/giveaway', createGiveAway)
+router.get('/giveaway/getAll', getAllGiveAway)
+router.delete('/giveAway/removeAll', removeAllGive)
 
 
 module.exports = router

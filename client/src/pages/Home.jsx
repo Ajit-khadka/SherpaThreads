@@ -10,7 +10,7 @@ import { useState } from "react";
 const Home = () => {
   const [floatIcon, setFloatIcon] = useState(false);
 
-  //popup Icon 
+  //popup Icon
   let headerBgHandler = () => {
     if (window.scrollY >= 500) {
       setFloatIcon(true);
