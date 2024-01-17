@@ -1,6 +1,6 @@
 import AdminLand from "../AdminLand";
 import AdminUser from "../AllUsers/AdminUser";
-import Order from "../../Order/Order";
+import GiveAway from '../Giveaway/Giveaway'
 import AllAcces from "../AdminProducts/AllProducts";
 import UpdateAcces from "../AdminProducts/UpdateProducts";
 import CreateAcces from "../AdminProducts/CreateProducts";
@@ -66,7 +66,7 @@ const AdminRoutes = () => {
           path="/GiveAway"
           element={
             <ProtectedRoute user={user}>
-              <Order />{" "}
+              <GiveAway />{" "}
             </ProtectedRoute>
           }
         />
