@@ -8,6 +8,7 @@ const { getAllFestivals, createFestivals,  getOneFestivals, deleteFestivals, upd
 const { getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes, } = require('../controllers/themesController')
 const {getAdmin} = require('../controllers/adminController')
 const {createGiveAway, getAllGiveAway, removeAllGive} = require('../controllers/giveController')
+const {createFav, getAllFav, checkFav, removeFav} = require('../controllers/favController')
 
 router.use(
     cors({
@@ -57,10 +58,14 @@ router.delete('/Add/Themes/remove/:userId', deleteThemes)
 router.put('/Add/Themes/update/:userId', updateThemes)
 
 //GiveAway
-
 router.post('/giveaway', createGiveAway)
 router.get('/giveaway/getAll', getAllGiveAway)
 router.delete('/giveAway/removeAll', removeAllGive)
 
+//Favorite
+router.post('/addfavorite', createFav)
+router.get('/getFav/:productId/:userId', checkFav)
+router.get('/favorite/getAll/:userId', getAllFav)
+router.delete('/removeFav/:productId/:userId', removeFav)
 
 module.exports = router

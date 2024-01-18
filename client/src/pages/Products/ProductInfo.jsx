@@ -77,7 +77,7 @@ const ProductInfo = () => {
       <SecondaryHeader />
 
       <div className=" flex items-center h-[85vh] justify-center">
-        <div className="h-[550px] w-[400px] overflow-hidden  bg-gray-400 rounded-md">
+        <div className="h-[550px] w-[400px] overflow-hidden  rounded-md">
           <LazyLoadImage
             className="h-[550px] w-[400px] object-cover"
             src="/images/modelfont.jpg"
