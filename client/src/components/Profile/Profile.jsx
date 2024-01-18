@@ -27,7 +27,7 @@ const Profile = (props) => {
         </div>
       </div>
       <div className="mt-3">
-        <Favorites />
+        <Favorites user={props.userData} />
       </div>
     </div>
   );

@@ -3,12 +3,73 @@ import { GrFavorite } from "react-icons/gr";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { MdFavorite } from "react-icons/md";
+import axios from "axios";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
-const AccessoriesProducts = (props) => {
+const Products = (props) => {
   const [quickBag, setQuickBag] = useState(false);
   // const [frontImage, setFrontImage] = useState(true);
   // const [backImage, setBackImage] = useState(false);
   const [quickBagAnime, setQuickBagAnime] = useState(false);
+  const [fav, setFav] = useState(false);
+  const [favorites, setFavorites] = useState({
+    userName: "",
+    userId: "",
+    productName: "",
+    productId: "",
+    productSection: "",
+    productPrice: "",
+    productImage: [],
+    favCondition: fav,
+  });
+
+
+  useEffect(() => {
+    const getFavCondition = async () => {
+      try {
+        console.log("product id", props.product._id);
+        // console.log("user id", favorites.userId);
+        await axios
+          .get(
+            `http://localhost:8000/api/getFav/${props.product._id}/${props.user.userId}`
+          )
+          .then((res) => setFav(res.data.msg))
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    setFavorites((prevfav) => {
+      return {
+        ...prevfav,
+        productName: props.product.productName,
+        productId: props.product._id,
+        productSection: props.product.productSection,
+        productPrice: props.product.productPrice,
+        productImage: props.product.productImages,
+        user: props.user.userName,
+        userId: props.user.userId,
+        favCondition: !fav,
+      };
+    });
+
+    getFavCondition();
+  }, []);
+
+  let favHandler = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setFav((prevFav) => !prevFav);
+
+    await axios
+      .post("http://localhost:8000/api/addfavorite", favorites)
+      .then((res) => toast.success(res.data.msg, { position: "bottom-left" }))
+      .catch((err) => console.log("error products", err));
+  };
 
   //setting condition if admin dont what to post second image and image toggle on hover
   // const onImageHandler = () => {
@@ -76,8 +137,15 @@ const AccessoriesProducts = (props) => {
                 alt="products"
               />
             )}{" "} */}
-            <div className="h-8 w-8 bg-white rounded-[50%] text-md absolute flex items-center justify-center top-4 right-4 shadow-xl">
-              <GrFavorite className="cursor-pointer" />
+            <div
+              className="h-8 w-8 bg-white rounded-[50%] text-md absolute flex items-center justify-center top-4 right-4 shadow-xl"
+              onClick={favHandler}
+            >
+              {fav ? (
+                <MdFavorite className="cursor-pointer  text-[18px] text-red-500" />
+              ) : (
+                <GrFavorite className="cursor-pointer" />
+              )}
             </div>
             {quickBag && (
               <div
@@ -103,16 +171,20 @@ const AccessoriesProducts = (props) => {
   );
 };
 
-AccessoriesProducts.propTypes = {
+Products.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number,
     fontImg: PropTypes.string,
     backImg: PropTypes.string,
     productSection: PropTypes.string,
     productName: PropTypes.string,
     productPrice: PropTypes.number,
     _id: PropTypes.string,
+    productImages: PropTypes.array,
+  }),
+  user: PropTypes.shape({
+    userName: PropTypes.string,
+    userId: PropTypes.string,
   }),
 };
 
-export default AccessoriesProducts;
+export default Products;

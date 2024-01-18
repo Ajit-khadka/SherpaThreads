@@ -13,7 +13,13 @@ const AccessoriesCollection = () => {
   const [showCat, setShowCat] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState({
+    user: "",
+    userId: "",
+  });
   const navigate = useNavigate();
+
+  console.log(products);
 
   if (
     section != "Accessories" &&
@@ -24,18 +30,28 @@ const AccessoriesCollection = () => {
     navigate("/err");
   }
 
-  const getUser = async () => {
-    try {
-      await axios.get("http://localhost:8000/login", {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(error);
-      navigate("/err");
-    }
-  };
-
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        await axios
+          .get("http://localhost:8000/login", {
+            withCredentials: true,
+          })
+          .then((res) =>
+            setUser((prevUser) => {
+              return {
+                ...prevUser,
+                user: res.data.user.userName,
+                userId: res.data.user._id,
+              };
+            })
+          );
+      } catch (error) {
+        console.log(error);
+        navigate("/err");
+      }
+    };
+
     getUser();
   }, []);
 
@@ -69,9 +85,7 @@ const AccessoriesCollection = () => {
         const res = await axios.get(`http://localhost:8000/api/Add/${section}`);
         setProducts(res.data[section.toLowerCase() + "data"]);
       } catch (err) {
-        console.log((err) => {
-          console.log("error", err);
-        });
+        console.log("error", err);
       }
     };
 
@@ -91,7 +105,9 @@ const AccessoriesCollection = () => {
     })
     .map((product) => {
       // console.log(items)
-      return <AccessoriesProducts key={product._id} product={product} />;
+      return (
+        <AccessoriesProducts key={product._id} product={product} user={user} />
+      );
     });
 
   //Renders
