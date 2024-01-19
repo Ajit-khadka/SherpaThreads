@@ -71,6 +71,7 @@ const Giveaway = () => {
       );
     });
 
+
   return (
     <div className="flex bg-indigo-300 h-[100vh] w-[100vw] font-Nunito ">
       <SideNav />

@@ -7,6 +7,7 @@ import { MdFavorite } from "react-icons/md";
 import axios from "axios";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import QuickBagModel from "../QuickBag/QuickBagModel";
 
 const Products = (props) => {
   const [quickBag, setQuickBag] = useState(false);
@@ -14,6 +15,22 @@ const Products = (props) => {
   // const [backImage, setBackImage] = useState(false);
   const [quickBagAnime, setQuickBagAnime] = useState(false);
   const [fav, setFav] = useState(false);
+  const [bag, setBag] = useState(false);
+  const [quickModal, setQuickModal] = useState(false);
+  const [orderBag, setorderBag] = useState({
+    productName: props.product.productName,
+    productId: props.product._id,
+    productSection: props.product.productSection,
+    productPrice: props.product.productPrice,
+    productImage: props.product.productImages,
+    userName: props.user.user,
+    userId: props.user.userId,
+    bagCondition: !bag,
+    buyerGender: "",
+    productColour: "",
+    productSize: "",
+  });
+
   const [favorites, setFavorites] = useState({
     userName: "",
     userId: "",
@@ -25,12 +42,9 @@ const Products = (props) => {
     favCondition: fav,
   });
 
-
   useEffect(() => {
     const getFavCondition = async () => {
       try {
-        console.log("product id", props.product._id);
-        // console.log("user id", favorites.userId);
         await axios
           .get(
             `http://localhost:8000/api/getFav/${props.product._id}/${props.user.userId}`
@@ -50,13 +64,36 @@ const Products = (props) => {
         productSection: props.product.productSection,
         productPrice: props.product.productPrice,
         productImage: props.product.productImages,
-        user: props.user.userName,
+        userName: props.user.user,
         userId: props.user.userId,
         favCondition: !fav,
       };
     });
 
-    getFavCondition();
+    let interval = setInterval(getFavCondition, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const getBagCondition = async () => {
+      try {
+        await axios
+          .get(
+            `http://localhost:8000/api/getOrder/${props.product._id}/${props.user.userId}`
+          )
+          .then((res) => {
+            setBag(res.data.msg);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    let interval = setInterval(getBagCondition, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   let favHandler = async (event) => {
@@ -69,6 +106,30 @@ const Products = (props) => {
       .post("http://localhost:8000/api/addfavorite", favorites)
       .then((res) => toast.success(res.data.msg, { position: "bottom-left" }))
       .catch((err) => console.log("error products", err));
+  };
+
+  let quickBagHandler = async (event, userBuy) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    setorderBag((prevOrderBag) => {
+      const updatedOrderBag = { ...prevOrderBag, ...userBuy };
+      console.log(updatedOrderBag);
+      return updatedOrderBag;
+    });
+
+    setBag((prevBag) => !prevBag);
+
+    await axios
+      .post("http://localhost:8000/api/addorder", orderBag)
+      .then((res) => toast.success(res.data.msg, { position: "bottom-left" }))
+      .catch((err) => console.log("error products", err));
+  };
+
+  let quickModalHandler = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setQuickModal(true);
   };
 
   //setting condition if admin dont what to post second image and image toggle on hover
@@ -101,6 +162,13 @@ const Products = (props) => {
 
   return (
     <div className="">
+      {quickModal && (
+        <QuickBagModel
+          close={() => setQuickModal(false)}
+          quickBagHandler={quickBagHandler}
+          product={props.product}
+        />
+      )}
       <div
         className="h-[480px] w-[302px]  overflow-hidden mt-12 cursor-pointer"
         onMouseOver={mouseOverHandler}
@@ -153,9 +221,23 @@ const Products = (props) => {
                   quickBagAnime
                     ? "Popularitems--quickBagIntro"
                     : "Popularitems--quickBagExit"
-                } Popularitems--quickBagIntro py-4 px-1 w-[110px] bg-purple-500 font-Sans font-semibold flex items-center justify-center text-[12px] rounded-2xl text-white bottom-4 right-4 absolute`}
+                } Popularitems--quickBagIntro py-6 px-1 w-[110px] bg-purple-500 font-Sans font-semibold flex items-center justify-center text-[12px] rounded-2xl text-white bottom-4 right-4 absolute`}
               >
-                + Quick Bag
+                {bag ? (
+                  <span
+                    onClick={quickBagHandler}
+                    className="absolute py-3 px-3"
+                  >
+                    - Remove Bag
+                  </span>
+                ) : (
+                  <span
+                    onClick={quickModalHandler}
+                    className="absolute py-3 px-5"
+                  >
+                    + Quick Bag
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -182,7 +264,7 @@ Products.propTypes = {
     productImages: PropTypes.array,
   }),
   user: PropTypes.shape({
-    userName: PropTypes.string,
+    user: PropTypes.string,
     userId: PropTypes.string,
   }),
 };

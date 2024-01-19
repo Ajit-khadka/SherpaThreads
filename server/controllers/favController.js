@@ -61,7 +61,7 @@ const getAllFav = async(req,res) => {
         const userId = req.params.userId
         const favdata = await favModel.find({userId : userId})
         if(!favdata) {
-            return res.status(404).json({msg: "FavAway data not found"})
+            return res.status(404).json({msg: "Fav data not found"})
         }
     
         res.status(200).json({favdata})
@@ -87,8 +87,5 @@ const removeFav = async(req,res) => {
     }
  
 }
-
-
-
 
 module.exports = {createFav, getAllFav, checkFav, removeFav} 

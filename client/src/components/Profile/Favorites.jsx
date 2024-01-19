@@ -36,6 +36,8 @@ const Favorites = (props) => {
         toast.success(res.data.msg, { position: "bottom-left" });
       })
       .catch((err) => console.log("error products", err));
+
+    // window.location.reload()
   };
 
   let favorite = Showfav.map((favorite) => {
@@ -44,7 +46,7 @@ const Favorites = (props) => {
         to={`/collection/${favorite.productSection}/${favorite.productId}`}
         key={favorite._id}
       >
-        <div className="h-[150px] w-[100px] rounded-md overflow-hidden border border-red-500 relative">
+        <div className="h-[150px] w-[100px] rounded-md overflow-hidden relative">
           <img
             className="object-cover  h-[150px] w-[100px]"
             src="/images/festival.jpg"
@@ -72,12 +74,15 @@ const Favorites = (props) => {
           <FaArrowRight className="text-[10px]" />
         </div>
       </div>
-      {/* <div className="border-[1px] w-[100%] h-40 rounded-md mt-4 border-black border-opacity-20 flex justify-center items-center opacity-80">
-        Login to see your favorites
-      </div>{" "} */}
-      <div className="ProductInfo--description flex h-[340px] gap-5 justify-center flex-wrap overflow-y-scroll my-4 w-[100%]">
-        {favorite}
-      </div>
+      {Showfav.length === 0 ? (
+        <div className="border-[1px] w-[100%] h-40 rounded-md mt-4 border-black border-opacity-20 flex justify-center items-center opacity-80">
+          Login to see your favorites
+        </div>
+      ) : (
+        <div className="ProductInfo--description flex h-[340px] gap-5 justify-center flex-wrap overflow-y-scroll my-4 w-[100%]">
+          {favorite}
+        </div>
+      )}
     </div>
   );
 };

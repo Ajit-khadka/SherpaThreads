@@ -30,23 +30,23 @@ const Header = () => {
     }
   };
 
-  const getUser = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/login", {
-        withCredentials: true,
-      });
-      // console.log("response", res);
-      setUserData(res.data.user);
-    } catch (err) {
-      if (err.response && err.response.status === 400) {
-        console.log("Bad Request: Invalid parameters");
-      }
-      return console.log("Axios Error:", err);
-    }
-  };
-
   useEffect(() => {
     // console.log("running");
+
+    const getUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/login", {
+          withCredentials: true,
+        });
+        // console.log("response", res);
+        setUserData(res.data.user);
+      } catch (err) {
+        if (err.response && err.response.status === 400) {
+          console.log("Bad Request: Invalid parameters");
+        }
+        return console.log("Axios Error:", err);
+      }
+    };
 
     if (Object.keys(userData).length < 1) {
       setOpenLoginPop(true);
@@ -106,7 +106,11 @@ const Header = () => {
         />
       )}
 
-      <QuickBag open={quickBag} close={() => setQuickBag(false)} />
+      <QuickBag
+        open={quickBag}
+        userData={userData}
+        close={() => setQuickBag(false)}
+      />
 
       <div
         className={` ${
