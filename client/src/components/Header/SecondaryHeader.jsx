@@ -78,7 +78,7 @@ const Header = () => {
         }}
         close={() => setOpenLoginPop(false)}
       />
-      <QuickBag open={quickBag} close={() => setQuickBag(false)} />
+      <QuickBag open={quickBag} userData={userData} close={() => setQuickBag(false)} />
       <div
         className={` ${
           navClick && "Header--AnimateIntro text-black bg-white "

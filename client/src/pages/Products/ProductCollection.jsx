@@ -19,8 +19,6 @@ const AccessoriesCollection = () => {
   });
   const navigate = useNavigate();
 
-  console.log(products);
-
   if (
     section != "Accessories" &&
     section != "Brands" &&
@@ -51,6 +49,8 @@ const AccessoriesCollection = () => {
         navigate("/err");
       }
     };
+
+    window.scrollTo(0, 0);
 
     getUser();
   }, []);

@@ -45,7 +45,12 @@ const Login = (props) => {
       className="h-[100%] w-[100%] fixed bg-black bg-opacity-40 z-20 top-0 left-0 "
       onClick={props.close}
     >
-      <div className="h-[92vh] w-[400px] bg-white rounded-xl absolute top-7 left-5 px-5 py-3">
+      <div
+        className="h-[92vh] w-[400px] bg-white rounded-xl absolute top-7 left-5 px-5 py-3"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <div className="w-[100%] flex justify-between items-center">
           <div className="text-xl font-inter font-bold">
             {" "}
