@@ -87,9 +87,6 @@ const ProductInfo = () => {
   useEffect(() => {
     const getBagCondition = async () => {
       try {
-        console.log(user);
-        console.log("userId", user.userId);
-        console.log("product Id", id);
         await axios
           .get(`http://localhost:8000/api/getOrder/${id}/${user.userId}`)
           .then((res) => {

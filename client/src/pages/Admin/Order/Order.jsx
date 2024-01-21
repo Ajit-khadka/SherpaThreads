@@ -8,7 +8,6 @@ import { GrContactInfo } from "react-icons/gr";
 
 const Order = () => {
   const [product, setProduct] = useState([]);
-  // console.log(product);
   const [search, setSearch] = useState("");
 
   useEffect(() => {

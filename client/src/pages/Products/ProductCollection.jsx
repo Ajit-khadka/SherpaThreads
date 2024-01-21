@@ -19,6 +19,8 @@ const AccessoriesCollection = () => {
   });
   const navigate = useNavigate();
 
+  console.log("user" , user)
+
   if (
     section != "Accessories" &&
     section != "Brands" &&
