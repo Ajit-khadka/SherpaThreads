@@ -1,6 +1,6 @@
 import AdminLand from "../AdminLand";
 import AdminUser from "../AllUsers/AdminUser";
-import GiveAway from '../Giveaway/Giveaway'
+import GiveAway from "../Giveaway/Giveaway";
 import AllAcces from "../AdminProducts/AllProducts";
 import UpdateAcces from "../AdminProducts/UpdateProducts";
 import CreateAcces from "../AdminProducts/CreateProducts";
@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import Error from "../../Error";
 import { useState } from "react";
 import ProtectedRoute from "./ProtectedRoute";
+import OrderInfo from "../Order/OrderInfo";
 
 const AdminRoutes = () => {
   const [user, setUser] = useState(false);
@@ -26,6 +27,16 @@ const AdminRoutes = () => {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/Dashboard/orderInfo/:orderId"
+          element={
+            <ProtectedRoute user={user}>
+              <OrderInfo />{" "}
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/All/Users"
           element={

@@ -22,7 +22,7 @@ const Products = (props) => {
     productId: props.product._id,
     productSection: props.product.productSection,
     productPrice: props.product.productPrice,
-    productImage: props.product.productImages,
+    productImages: props.product.productImages,
     userName: props.user.user,
     userId: props.user.userId,
     bagCondition: !bag,
@@ -38,7 +38,7 @@ const Products = (props) => {
     productId: "",
     productSection: "",
     productPrice: "",
-    productImage: [],
+    productImages: [],
     favCondition: fav,
   });
 
@@ -63,7 +63,7 @@ const Products = (props) => {
         productId: props.product._id,
         productSection: props.product.productSection,
         productPrice: props.product.productPrice,
-        productImage: props.product.productImages,
+        productImages: props.product.productImages,
         userName: props.user.user,
         userId: props.user.userId,
         favCondition: !fav,
@@ -96,6 +96,10 @@ const Products = (props) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    console.log("Updated orderBag:", orderBag);
+  }, [orderBag]);
+
   let favHandler = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -112,18 +116,21 @@ const Products = (props) => {
     event.stopPropagation();
     event.preventDefault();
 
-    setorderBag((prevOrderBag) => {
-      const updatedOrderBag = { ...prevOrderBag, ...userBuy };
-      console.log(updatedOrderBag);
-      return updatedOrderBag;
-    });
+    try {
+      const updatedOrderBag = { ...orderBag, ...userBuy };
+      
+      setorderBag(updatedOrderBag);
 
-    setBag((prevBag) => !prevBag);
+      setBag((prevBag) => !prevBag);
 
-    await axios
-      .post("http://localhost:8000/api/addorder", orderBag)
-      .then((res) => toast.success(res.data.msg, { position: "bottom-left" }))
-      .catch((err) => console.log("error products", err));
+      const response = await axios.post(
+        "http://localhost:8000/api/addorder",
+        updatedOrderBag
+      );
+      toast.success(response.data.msg, { position: "bottom-left" });
+    } catch (error) {
+      console.log("Error handling:", error);
+    }
   };
 
   let quickModalHandler = (event) => {
