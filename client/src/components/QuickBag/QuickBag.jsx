@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 const QuickBag = (props) => {
   const [ShowOrder, setShowOrder] = useState([]);
-  console.log(ShowOrder);
 
   useEffect(() => {
     let getOrders = async () => {
