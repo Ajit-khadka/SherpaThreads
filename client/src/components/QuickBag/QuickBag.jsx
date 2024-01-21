@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 
 const QuickBag = (props) => {
   const [ShowOrder, setShowOrder] = useState([]);
+  console.log(ShowOrder);
 
   useEffect(() => {
     let getOrders = async () => {
@@ -41,16 +42,31 @@ const QuickBag = (props) => {
   };
 
   let order = ShowOrder.map((order) => {
+    const createdDate = new Date(order.createdAt);
+    const createDateformatted = createdDate.toLocaleString();
+
     return (
       <div
         // to={`/collection/${order.productSection}/${order.productId}`}
         key={order._id}
       >
-        <div className="h-[150px] w-[100px] rounded-md overflow-hidden relative">
+        <div className="h-[200px] w-[500px] rounded-md overflow-hidden relative flex shadow-md border">
           <img
-            className="object-cover  h-[150px] w-[100px]"
+            className="object-cover  h-[200px] w-[200px]"
             src="/images/festival.jpg"
           />
+          <div className="w-[300px] font-Nunito py-2 ml-4">
+            <div className="text uppercase font-Sans font-extrabold italic">
+              {order.productName}
+            </div>
+            <div className="text mt-2">Rs {order.productPrice}</div>
+            <div className=" border-t-[1px] my-1 w-[100%]"></div>
+            <div className="text"> Color : {order.productColour}</div>
+            <div className="text"> Size : {order.productSize}</div>
+            <div className="text"> For : {order.buyerGender}</div>
+            <div className="text ">Type : {order.productSection}</div>
+            <div className="text">Ordered At: {createDateformatted}</div>
+          </div>
 
           <div
             className="h-8 w-8 bg-white rounded-[50%] text-md absolute flex items-center justify-center top-1 right-1 shadow-xl"
@@ -93,8 +109,10 @@ const QuickBag = (props) => {
           </div>
         ) : (
           <>
-            <div className="text-2xl  font-Sans font-extrabold italic uppercase">your Orders</div>
-            <div className="ProductInfo--description flex h-[560px] gap-5 justify-center flex-wrap overflow-y-scroll my-4 w-[100%] border border-black p-2 rounded-xl border-opacity-20">
+            <div className="text-2xl  font-Sans font-extrabold italic uppercase">
+              your Orders
+            </div>
+            <div className="ProductInfo--description h-[560px] gap-5 justify-center flex flex-wrap overflow-y-scroll my-4 w-[100%] border border-black p-2 rounded-xl border-opacity-20">
               {order}
             </div>
           </>

@@ -72,6 +72,38 @@ const getAllOrder = async(req,res) => {
     }
 }
 
+const getAdminOrder  = async(req,res) => {
+    /*try{
+        const orderdata = await orderModel.find()
+        if(!orderdata && orderdata.length === 0) {
+            return res.status(404).json({msg: "Order data not found"})
+        }
+    
+        res.status(200).json({orderdata})
+    
+    }catch(err){
+        res.status(500).json({error : err})
+    }*/
+
+    const orderdata = await orderModel.find()
+    res.status(200).json({orderdata})
+}
+
+const getOneOrder = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const orderExists = await orderModel.findOne({_id: productId})
+        if(!orderExists){
+           return res.status(404).json({msg : "Order Data not found"})
+        } 
+
+        res.status(200).json({orderExists})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
 
 const removeOrder = async(req,res) => {
     try{
@@ -91,4 +123,4 @@ const removeOrder = async(req,res) => {
 
 
 
-module.exports = {createOrder, getAllOrder, checkOrder, removeOrder}
+module.exports = {createOrder, getAllOrder, checkOrder, removeOrder, getAdminOrder, getOneOrder}

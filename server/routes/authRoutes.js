@@ -9,7 +9,7 @@ const { getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes, }
 const {getAdmin} = require('../controllers/adminController')
 const {createGiveAway, getAllGiveAway, removeAllGive} = require('../controllers/giveController')
 const {createFav, getAllFav, checkFav, removeFav} = require('../controllers/favController')
-const {createOrder, getAllOrder, checkOrder, removeOrder} = require('../controllers/orderController')
+const {createOrder, getAllOrder, checkOrder, removeOrder, getAdminOrder, getOneOrder} = require('../controllers/orderController')
 
 router.use(
     cors({
@@ -18,6 +18,7 @@ router.use(
         methods:"GET,POST,PUT,DELETE"
     }))
 
+// end points
 
 //getAdmin
 // router.post('/Admin', createAdmin)
@@ -69,10 +70,12 @@ router.get('/getFav/:productId/:userId', checkFav)
 router.get('/favorite/getAll/:userId', getAllFav)
 router.delete('/removeFav/:productId/:userId', removeFav)
 
-//
+//Order
 router.post('/addorder', createOrder)
 router.get('/getOrder/:productId/:userId', checkOrder)
 router.get('/order/getAll/:userId', getAllOrder)
+router.get('/order/getOne/:productId', getOneOrder)
+router.get('/order/deliver', getAdminOrder)
 router.delete('/removeOrder/:productId/:userId', removeOrder)
 
 module.exports = router

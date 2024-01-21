@@ -8,16 +8,35 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ProductInfo = () => {
   const { id, productSection } = useParams();
   const navigate = useNavigate();
+  const [bag, setBag] = useState(false);
   const [userBuy, setUserBuy] = useState({
+    buyerGender: "Men",
+    productColour: "Red",
+    productSize: "M",
+  });
+
+  const [user, setUser] = useState({});
+
+  const [productInfo, setProductInfo] = useState({});
+
+  const [orderBag, setorderBag] = useState({
+    productName: "",
+    productId: id,
+    productSection: productSection,
+    productPrice: "",
+    productImages: "",
+    userName: "",
+    userId: "",
+    bagCondition: !bag,
     buyerGender: "",
     productColour: "",
     productSize: "",
   });
-  const [productInfo, setProductInfo] = useState({});
 
   if (
     productSection != "Accessories" &&
@@ -27,19 +46,6 @@ const ProductInfo = () => {
   ) {
     navigate("/err");
   }
-
-  const getUser = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/login", {
-        withCredentials: true,
-      });
-
-      console.log("response", response);
-    } catch (error) {
-      console.log(error);
-      navigate("/err");
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,8 +60,51 @@ const ProductInfo = () => {
     };
 
     fetchData();
-    getUser();
   }, [id, productSection]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await axios
+          .get("http://localhost:8000/login", {
+            withCredentials: true,
+          })
+          .then((res) =>
+            setUser({
+              userName: res.data.user.userName,
+              userId: res.data.user._id,
+            })
+          );
+      } catch (error) {
+        console.log(error);
+        navigate("/err");
+      }
+    };
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    const getBagCondition = async () => {
+      try {
+        console.log(user);
+        console.log("userId", user.userId);
+        console.log("product Id", id);
+        await axios
+          .get(`http://localhost:8000/api/getOrder/${id}/${user.userId}`)
+          .then((res) => {
+            setBag(res.data.msg);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    let interval = setInterval(getBagCondition, 1000);
+
+    return () => clearInterval(interval);
+  }, [id, user]);
 
   let aboutProduct = productInfo.productDescription?.map((items) => (
     <ul key={items.id} className="ProductInfo--productAbout mt-2">
@@ -70,6 +119,31 @@ const ProductInfo = () => {
         [objectName]: objectValue,
       };
     });
+  };
+
+  let bagHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const updatedOrderBag = {
+        ...orderBag,
+        ...userBuy,
+        ...user,
+        ...productInfo,
+      };
+
+      setorderBag(updatedOrderBag);
+
+      setBag((prevBag) => !prevBag);
+
+      const response = await axios.post(
+        "http://localhost:8000/api/addorder",
+        updatedOrderBag
+      );
+      toast.success(response.data.msg, { position: "bottom-left" });
+    } catch (err) {
+      console.log("error", err);
+    }
   };
 
   return (
@@ -242,8 +316,11 @@ const ProductInfo = () => {
           </div>
 
           <div className="flex space-x-4 mt-8">
-            <div className="px-6 py-4 bg-purple-500 text-white font-semibold font-Inter w-[300px] text-center rounded-2xl text-[14px] cursor-pointer">
-              Add to Bag
+            <div
+              className="px-6 py-4 bg-purple-500 text-white font-semibold font-Inter w-[300px] text-center rounded-2xl text-[14px] cursor-pointer"
+              onClick={bagHandler}
+            >
+              {bag ? <span>Remove from Bag</span> : <span>Add to Bag</span>}
             </div>
             <div className="relative ">
               {" "}

@@ -7,7 +7,7 @@ const favSchema = new mongoose.Schema({
         productId: String,
         productSection: String,
         productPrice: String,
-        productImage: Array,
+        productImages: Array,
         favCondition: Boolean,
      
 },{timestamps: true})
