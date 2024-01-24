@@ -1,4 +1,6 @@
 const userModel = require('../models/userModel');
+const orderModel = require('../models/orderModel')
+const favModel = require('../models/favModel')
 
 const getAll = async (req,res) => {
     try{
@@ -43,6 +45,36 @@ const getOne = async (req,res) => {
    
 // }
 
+const deleteUserFav = async (req,res) => {
+    try{
+        const userId = req.params.userId
+        const userdata = await favModel.deleteMany({userId : userId})
+
+        if(!userdata) {
+           return res.status(404).json({msg: "User Data not found"})
+        }
+
+        res.status(200).json({msg: "Deleted User Favorites"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+}
+
+const deleteUserOrder = async (req,res) => {
+    try{
+        const userId = req.params.userId
+        const userdata = await orderModel.deleteMany({userId : userId})
+
+        if(!userdata) {
+           return res.status(404).json({msg: "User Data not found"})
+        }
+
+        res.status(200).json({msg : "Deleted User Orders"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+}
+
 const deleteUser = async (req,res) => {
     try{
         const userId = req.params.userId
@@ -58,4 +90,4 @@ const deleteUser = async (req,res) => {
     }
 } 
 
-module.exports = {getAll, getOne, deleteUser}
+module.exports = {getAll, getOne, deleteUser, deleteUserFav, deleteUserOrder}

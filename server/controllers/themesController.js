@@ -1,5 +1,7 @@
 
 const themesModel = require("../models/themesModel");
+const orderModel = require("../models/orderModel");
+const favModel = require("../models/favModel");
 
 const createThemes = async(req,res) => {
     try{
@@ -78,9 +80,39 @@ const updateThemes = async(req,res) => {
  
 }
 
+const deleteThemeFav = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const themesdata = await favModel.deleteMany({productId: productId})
+        if(!themesdata){
+           return res.status(404).json({msg : "Accessories Data not found"})
+        } 
+
+        res.status(200).json({msg : "Accessories Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
+const deleteThemeOrder = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const themesdata = await orderModel.deleteMany({productId: productId})
+        if(!themesdata){
+           return res.status(404).json({msg : "Accessories Data not found"})
+        } 
+
+        res.status(200).json({msg : "Accessories Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
 // const uploadImage = (req,res) => {
 //     console.log(req.body)
 //     res.send("uploaded!")
 // }
 
-module.exports = {getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes}
+module.exports = {getAllThemes, createThemes,  getOneThemes, deleteThemes, updateThemes,  deleteThemeFav, deleteThemeOrder}

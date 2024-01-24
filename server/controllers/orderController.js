@@ -73,7 +73,7 @@ const getAllOrder = async(req,res) => {
 }
 
 const getAdminOrder  = async(req,res) => {
-    /*try{
+    try{
         const orderdata = await orderModel.find()
         if(!orderdata && orderdata.length === 0) {
             return res.status(404).json({msg: "Order data not found"})
@@ -83,10 +83,8 @@ const getAdminOrder  = async(req,res) => {
     
     }catch(err){
         res.status(500).json({error : err})
-    }*/
+    }
 
-    const orderdata = await orderModel.find()
-    res.status(200).json({orderdata})
 }
 
 const getOneOrder = async(req,res) => {

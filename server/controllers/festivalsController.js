@@ -1,5 +1,7 @@
 
 const festivalsModel = require("../models/festivalsModel");
+const orderModel = require("../models/orderModel");
+const favModel = require("../models/favModel");
 
 const createFestivals = async(req,res) => {
     try{
@@ -78,9 +80,39 @@ const updateFestivals = async(req,res) => {
  
 }
 
+const deleteFesFav = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const festivalsdata = await favModel.deleteMany({productId: productId})
+        if(!festivalsdata){
+           return res.status(404).json({msg : "Festival Data not found"})
+        } 
+
+        res.status(200).json({msg : "Festival Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
+const deleteFesOrder = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const festivalsdata = await orderModel.deleteMany({productId: productId})
+        if(!festivalsdata){
+           return res.status(404).json({msg : "Festival Data not found"})
+        } 
+
+        res.status(200).json({msg : "Festival Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
 // const uploadImage = (req,res) => {
 //     console.log(req.body)
 //     res.send("uploaded!")
 // }
 
-module.exports = {getAllFestivals, createFestivals,  getOneFestivals, deleteFestivals, updateFestivals}
+module.exports = {getAllFestivals, createFestivals,  getOneFestivals, deleteFestivals, updateFestivals, deleteFesFav, deleteFesOrder}

@@ -41,6 +41,24 @@ const AdminUser = () => {
           .catch((err) => {
             console.log(err);
           });
+
+        await axios
+          .delete(`http://localhost:8000/api/Clear/favorite/${deleteUser}`)
+          .then((res) => {
+            toast.success(res.data.msg, { position: "bottom-left" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        await axios
+          .delete(`http://localhost:8000/api/Clear/order/${deleteUser}`)
+          .then((res) => {
+            toast.success(res.data.msg, { position: "bottom-left" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         setverifyDelete(false);
       }
     };
@@ -127,7 +145,7 @@ const AdminUser = () => {
                 </div>
               </div>
             </div>
-            {users.length > 0 ? (
+            {users.length > 1 ? (
               <table className="rwd-table border-2 border-red-500 w-[100%]">
                 <tbody className="">
                   <tr>

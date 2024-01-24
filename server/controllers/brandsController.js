@@ -1,5 +1,7 @@
 
 const brandsModel = require("../models/brandsModel");
+const orderModel = require("../models/orderModel");
+const favModel = require("../models/favModel");
 
 const createBrands = async(req,res) => {
     try{
@@ -77,9 +79,39 @@ const updateBrands = async(req,res) => {
  
 }
 
+const deleteBrandFav = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const brandsdata = await favModel.deleteMany({productId: productId})
+        if(!brandsdata){
+           return res.status(404).json({msg : "Brands Data not found"})
+        } 
+
+        res.status(200).json({msg : "Brands Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
+const deleteBrandOrder = async(req,res) => {
+    try{
+        const productId = req.params.productId
+        const brandsdata = await orderModel.deleteMany({productId: productId})
+        if(!brandsdata){
+           return res.status(404).json({msg : "Brands Data not found"})
+        } 
+
+        res.status(200).json({msg : "Brands Deleted Successfully"})
+    }catch(err){
+        res.status(500).json({error : err})
+    }
+ 
+}
+
 // const uploadImage = (req,res) => {
 //     console.log(req.body)
 //     res.send("uploaded!")
 // }
 
-module.exports = { createBrands,  getOneBrands, deleteBrands, updateBrands, getAllBrands}
+module.exports = { createBrands,  getOneBrands, deleteBrands, updateBrands, getAllBrands, deleteBrandFav, deleteBrandOrder}
