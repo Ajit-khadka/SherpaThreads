@@ -16,6 +16,7 @@ const AllAccess = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [verifyDelete, setverifyDelete] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState(null);
+  console.log(deleteProduct);
 
   useEffect(() => {
     const userFetch = async () => {
@@ -55,6 +56,29 @@ const AllAccess = () => {
           .catch((err) => {
             console.log(err);
           });
+
+        await axios
+          .delete(
+            `http://localhost:8000/api/clear/${section}/order/${deleteProduct}`
+          )
+          .then((res) => {
+            toast.success(res.data.msg, { position: "bottom-left" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        await axios
+          .delete(
+            `http://localhost:8000/api/clear/${section}/fav/${deleteProduct}`
+          )
+          .then((res) => {
+            toast.success(res.data.msg, { position: "bottom-left" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
         setverifyDelete(false);
       }
     };
