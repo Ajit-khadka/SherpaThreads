@@ -48,9 +48,6 @@ const Header = () => {
       }
     };
 
-    if (Object.keys(userData).length < 1) {
-      setOpenLoginPop(true);
-    }
 
     let interval = setInterval(getUser(), 30000);
 

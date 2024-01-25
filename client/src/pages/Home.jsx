@@ -6,9 +6,30 @@ import BackImages from "../data/BackImages";
 import HomeSlider from "../components/HomeSlider";
 import { FaArrowUp } from "react-icons/fa";
 import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [floatIcon, setFloatIcon] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await axios
+          .get("http://localhost:8000/login", {
+            withCredentials: true,
+          })
+          .then((res) => console.log("Response", res));
+      } catch (error) {
+        console.log(error);
+        navigate("/err");
+      }
+    };
+
+    getUser();
+  }, []);
 
   //popup Icon
   let headerBgHandler = () => {
