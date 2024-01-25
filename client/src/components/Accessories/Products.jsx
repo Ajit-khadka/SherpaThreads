@@ -118,7 +118,7 @@ const Products = (props) => {
 
     try {
       const updatedOrderBag = { ...orderBag, ...userBuy };
-      
+
       setorderBag(updatedOrderBag);
 
       setBag((prevBag) => !prevBag);

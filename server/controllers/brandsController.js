@@ -87,7 +87,7 @@ const deleteBrandFav = async(req,res) => {
            return res.status(404).json({msg : "Brands Data not found"})
         } 
 
-        res.status(200).json({msg : "Brands Deleted Successfully"})
+        res.status(200).json({msg : "Product Cleared from user favorites"})
     }catch(err){
         res.status(500).json({error : err})
     }
@@ -102,7 +102,7 @@ const deleteBrandOrder = async(req,res) => {
            return res.status(404).json({msg : "Brands Data not found"})
         } 
 
-        res.status(200).json({msg : "Brands Deleted Successfully"})
+        res.status(200).json({msg : "Product Cleared from user orders"})
     }catch(err){
         res.status(500).json({error : err})
     }

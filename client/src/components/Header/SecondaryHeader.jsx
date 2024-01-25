@@ -87,7 +87,7 @@ const Header = () => {
         <nav className="flex items-center  space-x-16 ">
           <div
             className=" cursor-pointer font-Roboto italic text-[22px] font-bold"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/Home")}
           >
             SherpaThreads
           </div>

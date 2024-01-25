@@ -8,14 +8,13 @@ import ProductCollection from "./pages/Products/ProductCollection";
 import { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import LoginPage from "./pages/loginPage";
 
 const AdminRoutes = lazy(() => import("./pages/Admin/AdminRoute/AdminRoutes"));
 
 const App = () => {
   const [userData, setUserData] = useState({});
   const [hideRoute, setHideRoute] = useState(false);
-
-  console.log(userData.role);
 
   const getUser = async () => {
     try {
@@ -25,9 +24,6 @@ const App = () => {
       // console.log("response", res);
       setUserData(res.data.user);
     } catch (err) {
-      if (err.response && err.response.status === 400) {
-        console.log("Bad Request: Invalid parameters");
-      }
       return console.log("Axios Error:", err);
     }
   };
@@ -40,7 +36,6 @@ const App = () => {
     getUser();
   }, [userData.role]);
 
-
   //admin route protected
   //order
   //fav
@@ -51,8 +46,8 @@ const App = () => {
 
   return (
     <Routes>
+      <Route index element={<LoginPage />} />
       <Route path="/" element={<MainHeader />}>
-        <Route index element={<Home />} />
         <Route path="/Home" element={<Home />} />
       </Route>
       <Route path="/collection/:section" element={<ProductCollection />} />
