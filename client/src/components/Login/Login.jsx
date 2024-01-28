@@ -46,7 +46,7 @@ const Login = (props) => {
       onClick={props.close}
     >
       <div
-        className="h-[92vh] w-[400px] bg-white rounded-xl absolute top-7 left-5 px-5 py-3"
+        className="login-container h-[92vh] bg-white rounded-xl absolute top-7 left-5 px-5 py-3"
         onClick={(event) => {
           event.stopPropagation();
         }}

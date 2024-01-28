@@ -18,7 +18,7 @@ const Login = () => {
         src="/images/backLoginImage.png"
       ></img>
       <div
-        className="h-[92vh] w-[400px] bg-white rounded-xl absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-5 py-3 shadow-xl"
+        className="login--Page bg-white rounded-xl absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-5 py-3 shadow-xl overflow-hidden overflow-y-scroll "
         onClick={(event) => {
           event.stopPropagation();
         }}

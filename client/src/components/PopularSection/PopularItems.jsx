@@ -241,7 +241,7 @@ const PopularItems = (props) => {
             )}
           </div>
         </Link>
-        <div className="text-md font-Inter font-semibold mt-5">
+        <div className=" font-Nunito font-bold mt-5">
           {props.items.productName}
         </div>
         <div className="opacity-[80%] font-Inter text-md mt-1">

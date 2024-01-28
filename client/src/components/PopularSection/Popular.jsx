@@ -55,10 +55,10 @@ const Popular = () => {
 
   return (
     <div className=" my-12 ">
-      <div className="uppercase text-3xl italic font-extrabold font-Sans px-16">
+      <div className="global-text uppercase italic font-extrabold font-Sans global-padding">
         Popular Themes
       </div>
-      <section className="Popular--ScrollSection flex space-x-5 overflow-x-scroll pl-16 pr-16">
+      <section className="Popular--ScrollSection popular-padding flex space-x-5 overflow-x-scroll ">
         {products.length > 0 ? popularItem : emptyProduct}
       </section>
     </div>

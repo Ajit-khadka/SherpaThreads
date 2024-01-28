@@ -698,8 +698,8 @@ const AccessoriesCollection = () => {
         >
           {section}
         </div>
-        <div className="flex">
-          <div className="sticky w-[25%] h-[100%] px-14 ml-4 bg-white  left-0 top-[10vh]">
+        <div className="collection-page">
+          <div className="collection-filter  bg-white  left-0 top-[10vh]">
             <div className="flex items-center mt-10">
               {" "}
               <RxMixerHorizontal className="mr-2 h-5 w-5 " />
@@ -709,9 +709,9 @@ const AccessoriesCollection = () => {
             {options}
             <div className=" border-t-[1px] mt-5 w-[100%]"></div>
           </div>
-          <div className=" Collection--scrollhide content-center w-[75%] pb-10 text-left">
+          <div className="Collection--scrollhide collection-productContainer content-center pb-10 text-left">
             {AccessoriesItem.length !== 0 ? (
-              <div className=" flex flex-wrap justify-around gap-x-10">
+              <div className="collection-products flex flex-wrap ">
                 {AccessoriesItem}
               </div>
             ) : (

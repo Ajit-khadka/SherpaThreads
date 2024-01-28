@@ -177,7 +177,7 @@ const Products = (props) => {
         />
       )}
       <div
-        className="h-[480px] w-[302px]  overflow-hidden mt-12 cursor-pointer"
+        className="collection-imgContainer  overflow-hidden mt-12 cursor-pointer "
         onMouseOver={mouseOverHandler}
         onMouseOut={mouseOutHandler}
       >
@@ -185,12 +185,12 @@ const Products = (props) => {
           to={`/collection/${props.product.productSection}/${props.product._id}`}
         >
           <div
-            className="h-[400px] w-[300px] relative  rounded-md overflow-hidden"
+            className="collection-imgParent  relative  rounded-md overflow-hidden flex justify-center items-center"
             // onMouseOver={onImageHandler}
             // onMouseOut={outImageHandler}
           >
             <LazyLoadImage
-              className="max-w-[100%] max-h-[100%] object-cover"
+              className="collection-img w-[100%] h-[100%] object-cover"
               src={`/images/modelfont.jpg`}
               alt="products"
             />
@@ -249,7 +249,7 @@ const Products = (props) => {
             )}
           </div>
         </Link>
-        <div className="text-md font-Inter font-semibold mt-5">
+        <div className="text-md font-Nunito font-bold mt-5">
           {props.product.productName}
         </div>
         <div className="opacity-[80%] font-Inter text-md mt-1">

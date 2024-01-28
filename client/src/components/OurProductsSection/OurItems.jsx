@@ -21,28 +21,28 @@ const OurItems = (props) => {
   return (
     <>
       <Link to={`/collection/${props.items.type}`}>
-        <div className="h-[450px] w-[450px] overflow-hidden rounded-md">
+        <div className="parent--ourItems overflow-hidden rounded-md  flex justify-center items-center relative">
           <div
-            className=" OurItems--Products  relative cursor-pointer"
+            className=" OurItems--Products   cursor-pointer"
             onMouseOver={onIconHandler}
             onMouseOut={OutIconHandler}
           >
             <LazyLoadImage
-              className="h-[450px] w-[450px] object-cover rounded-md "
+              className="child--ourItems object-cover rounded-md "
               src={`/images/${props.items.ourProductImg}`}
             />
-            <div className=" absolute bottom-12 left-10 flex font-Inter font-extrabold text-xl uppercase italic text-white items-center  ">
-              {props.items.type}{" "}
-              {popupIcon && (
-                <span
-                  className={`${
-                    iconAnimate ? "OutItems--IconIntro" : "OutItems--IconExit"
-                  } h-10 w-10 rounded-[50%] bg-white flex items-center justify-center shadow-xl ml-4`}
-                >
-                  <IoIosArrowForward className=" text-black text-md" />
-                </span>
-              )}
-            </div>
+          </div>
+          <div className="absolute bottom-[10%] left-[10%] flex font-Inter font-extrabold text-xl uppercase italic text-white items-center  ">
+            {props.items.type}{" "}
+            {popupIcon && (
+              <span
+                className={`${
+                  iconAnimate ? "OutItems--IconIntro" : "OutItems--IconExit"
+                } h-10 w-10 rounded-[50%] bg-white flex items-center justify-center shadow-xl ml-4`}
+              >
+                <IoIosArrowForward className=" text-black text-md" />
+              </span>
+            )}
           </div>
         </div>
       </Link>

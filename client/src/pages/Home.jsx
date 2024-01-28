@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [floatIcon, setFloatIcon] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,9 +49,22 @@ const Home = () => {
   };
 
   //Mapping data from BackImages.js
-  let info = BackImages.map((items) => {
-    return <HomeSlider key={items.id} item={items} />;
+  const info = BackImages.map((items, index) => {
+    if (index === currentIndex) {
+      return <HomeSlider key={items.id} item={items} />;
+    }
   });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === BackImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  }, [currentIndex]);
+
   return (
     <div className="relative">
       <div className="">
