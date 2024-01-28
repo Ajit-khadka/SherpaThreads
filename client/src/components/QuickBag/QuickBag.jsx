@@ -49,9 +49,9 @@ const QuickBag = (props) => {
         // to={`/collection/${order.productSection}/${order.productId}`}
         key={order._id}
       >
-        <div className="h-[200px] w-[500px] rounded-md overflow-hidden relative flex shadow-md border">
+        <div className="quickbag-orderImgContainer rounded-md overflow-hidden relative   shadow-md">
           <img
-            className="object-cover  h-[200px] w-[200px]"
+            className="quickbag-orderImg object-cover h-[200px] "
             src="/images/festival.jpg"
           />
           <div className="w-[300px] font-Nunito py-2 ml-4">
@@ -88,7 +88,7 @@ const QuickBag = (props) => {
       onClick={props.close}
     >
       <div
-        className="h-[92vh] w-[650px] bg-white rounded-xl absolute top-7 right-5 px-5 py-3"
+        className="QuickBag bg-white rounded-xl absolute top-7 right-5 px-5 py-3 overflow-hidden"
         onClick={(event) => {
           event.stopPropagation();
         }}
@@ -111,7 +111,7 @@ const QuickBag = (props) => {
             <div className="text-2xl  font-Sans font-extrabold italic uppercase">
               your Orders
             </div>
-            <div className="ProductInfo--description h-[560px] gap-5 justify-center flex flex-wrap overflow-y-scroll my-4 w-[100%] border border-black p-2 rounded-xl border-opacity-20">
+            <div className="ProductInfo--description h-[560px] gap-5 justify-center items-start flex flex-wrap overflow-y-scroll my-4 pb-[60px] w-[100%] border border-black p-2 rounded-xl border-opacity-20">
               {order}
             </div>
           </>

@@ -48,7 +48,7 @@ const Favorites = (props) => {
       >
         <div className="h-[150px] w-[100px] rounded-md overflow-hidden relative">
           <img
-            className="object-cover  h-[150px] w-[100px]"
+            className="object-cover  h-[150px] "
             src="/images/festival.jpg"
           />
 
@@ -69,7 +69,7 @@ const Favorites = (props) => {
     <div className="h-[100%] ">
       <div className="relative flex items-center justify-start">
         <div className="text-xl font-inter font-bold">Favorites</div>
-        <div className="Footer--GiveawayEnter h-5 w-5 bg-gray-300 absolute cursor-pointer rounded-[50%] flex justify-center items-center text-black left-[90px] top-2 shadow-xl">
+        <div className="Footer--GiveawayEnter h-5 w-5 bg-gray-300 absolute cursor-pointer rounded-[50%] flex justify-center items-center text-black left-[90px] top-2 shadow-xl ">
           {" "}
           <FaArrowRight className="text-[10px]" />
         </div>
@@ -79,7 +79,7 @@ const Favorites = (props) => {
           Login to see your favorites
         </div>
       ) : (
-        <div className="ProductInfo--description flex h-[340px] gap-5 justify-center flex-wrap overflow-y-scroll my-4 w-[100%]">
+        <div className="ProductInfo--description flex h-[42vh] gap-5 px-2 flex-wrap overflow-y-scroll my-4 w-[100%] border border-black rounded-xl p-2 border-opacity-20">
           {favorite}
         </div>
       )}

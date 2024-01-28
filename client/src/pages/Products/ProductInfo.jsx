@@ -144,255 +144,259 @@ const ProductInfo = () => {
   };
 
   return (
-    <div className="h-[85vh] mt-[90px]" key={productInfo._id}>
+    <>
       <SecondaryHeader />
-
-      <div className=" flex items-center h-[85vh] justify-center">
-        <div className="h-[550px] w-[400px] overflow-hidden  rounded-md">
-          <LazyLoadImage
-            className="h-[550px] w-[400px] object-cover"
-            src="/images/modelfont.jpg"
-          />
-        </div>
-        <div className="ProductInfo--description flex flex-col  items-start  overflow-scroll ml-10 h-[550px] w-[1000px] ">
-          <div className="italic font-Sans font-extrabold text-2xl uppercase mt-1">
-            {productInfo.productName}{" "}
+      <div
+        className="productInfo-main"
+        key={productInfo._id}
+      >
+        <div className="productInfo-container ">
+          <div className="productInfo-Img overflow-hidden flex justify-center items-center rounded-md ">
+            <LazyLoadImage
+              className="h-[100%] w-[100%] object-cover"
+              src="/images/modelfont.jpg"
+            />
           </div>
-          <div className="mt-2 text-xl opacity-80 font-Inter">
-            Rs {productInfo.productPrice}
-          </div>
-          <div className=" border-t-[1px] my-4 w-[100%]"></div>
-          <div>
-            <span className="">
-              <span className="opacity-70 ">Gender : </span>
-              {userBuy.buyerGender}
-            </span>
-          </div>
-          <div className="flex space-x-2 mt-4 ml-1">
-            <div
-              className={`${
-                userBuy.buyerGender === "Men"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
-              onClick={() => orderHandler("buyerGender", "Men")}
-            >
-              Men&apos;s
+          <div className="ProductInfo--description border border-black border-opacity-10 rounded-md ">
+            <div className="italic font-Sans font-extrabold text-2xl uppercase">
+              {productInfo.productName}{" "}
             </div>
-            <div
-              className={`${
-                userBuy.buyerGender === "Women"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
-              onClick={() => orderHandler("buyerGender", "Women")}
-            >
-              Women&apos;s
+            <div className="mt-2 text-xl opacity-80 font-Inter">
+              Rs {productInfo.productPrice}
             </div>
-          </div>
-          <div className="mt-4">
-            <span className="opacity-70 ">Colour :</span>{" "}
-            {userBuy.productColour}{" "}
+            <div className=" border-t-[1px] my-4 w-[100%]"></div>
+            <div>
+              <span className="">
+                <span className="opacity-70 ">Gender : </span>
+                {userBuy.buyerGender}
+              </span>
+            </div>
             <div className="flex space-x-2 mt-4 ml-1">
               <div
                 className={`${
-                  userBuy.productColour === "Red" && "outline outline-2"
-                }  px-1 py-1  rounded-[50%]`}
-                onClick={() => orderHandler("productColour", "Red")}
+                  userBuy.buyerGender === "Men"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
+                onClick={() => orderHandler("buyerGender", "Men")}
               >
-                <div className=" h-5 w-5 bg-red-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                Men&apos;s
               </div>
               <div
                 className={`${
-                  userBuy.productColour === "Green" && "outline outline-2"
-                } px-1 py-1  rounded-[50%]`}
-                onClick={() => orderHandler("productColour", "Green")}
+                  userBuy.buyerGender === "Women"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  px-5 py-3 flex justify-center items-center rounded-2xl cursor-pointer`}
+                onClick={() => orderHandler("buyerGender", "Women")}
               >
-                <div className=" h-5 w-5 bg-green-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                Women&apos;s
+              </div>
+            </div>
+            <div className="mt-4 ">
+              <span className="opacity-70 ">Colour :</span>{" "}
+              {userBuy.productColour}{" "}
+              <div className="flex space-x-2 mt-4 ml-1">
+                <div
+                  className={`${
+                    userBuy.productColour === "Red" && "outline outline-2"
+                  }  px-1 py-1  rounded-[50%]`}
+                  onClick={() => orderHandler("productColour", "Red")}
+                >
+                  <div className=" h-5 w-5 bg-red-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                </div>
+                <div
+                  className={`${
+                    userBuy.productColour === "Green" && "outline outline-2"
+                  } px-1 py-1  rounded-[50%]`}
+                  onClick={() => orderHandler("productColour", "Green")}
+                >
+                  <div className=" h-5 w-5 bg-green-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                </div>
+                <div
+                  className={`${
+                    userBuy.productColour === "Blue" && "outline outline-2"
+                  } px-1 py-1  rounded-[50%]`}
+                  onClick={() => orderHandler("productColour", "Blue")}
+                >
+                  <div className=" h-5 w-5 bg-blue-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                </div>
+                <div
+                  className={`${
+                    userBuy.productColour === "Orange" && "outline outline-2"
+                  } px-1 py-1  rounded-[50%]`}
+                  onClick={() => orderHandler("productColour", "Orange")}
+                >
+                  <div className=" h-5 w-5 bg-orange-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                </div>
+                <div
+                  className={`${
+                    userBuy.productColour === "Purple" && "outline outline-2"
+                  }  px-1 py-1  rounded-[50%]`}
+                  onClick={() => orderHandler("productColour", "Purple")}
+                >
+                  <div className=" h-5 w-5 bg-purple-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                </div>
+              </div>
+            </div>
+            <div className="my-4">
+              <span className="opacity-70 ">Size : </span> {userBuy.productSize}{" "}
+            </div>
+            <div className="flex gap-2 ml-1  flex-wrap">
+              <div
+                className={`${
+                  userBuy.productSize === "XS"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "XS")}
+              >
+                XS
               </div>
               <div
                 className={`${
-                  userBuy.productColour === "Blue" && "outline outline-2"
-                } px-1 py-1  rounded-[50%]`}
-                onClick={() => orderHandler("productColour", "Blue")}
+                  userBuy.productSize === "M"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "M")}
               >
-                <div className=" h-5 w-5 bg-blue-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                M
               </div>
               <div
                 className={`${
-                  userBuy.productColour === "Orange" && "outline outline-2"
-                } px-1 py-1  rounded-[50%]`}
-                onClick={() => orderHandler("productColour", "Orange")}
+                  userBuy.productSize === "L"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "L")}
               >
-                <div className=" h-5 w-5 bg-orange-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                L
               </div>
               <div
                 className={`${
-                  userBuy.productColour === "Purple" && "outline outline-2"
-                }  px-1 py-1  rounded-[50%]`}
-                onClick={() => orderHandler("productColour", "Purple")}
+                  userBuy.productSize === "XL"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "XL")}
               >
-                <div className=" h-5 w-5 bg-purple-500  rounded-[50%] cursor-pointer px-3 py-3"></div>
+                XL
+              </div>
+              <div
+                className={`${
+                  userBuy.productSize === "2XL"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "2XL")}
+              >
+                2XL
+              </div>
+              <div
+                className={`${
+                  userBuy.productSize === "3XL"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "3XL")}
+              >
+                3XL
+              </div>
+              <div
+                className={`${
+                  userBuy.productSize === "4XL"
+                    ? "outline outline-2 "
+                    : "outline outline-1 outline-gray-300"
+                }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
+                onClick={() => orderHandler("productSize", "4XL")}
+              >
+                4XL
               </div>
             </div>
-          </div>
-          <div className="my-4">
-            <span className="opacity-70 ">Size : </span> {userBuy.productSize}{" "}
-          </div>
-          <div className="flex space-x-2 ml-1">
-            <div
-              className={`${
-                userBuy.productSize === "XS"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "XS")}
-            >
-              XS
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "M"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "M")}
-            >
-              M
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "L"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "L")}
-            >
-              L
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "XL"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "XL")}
-            >
-              XL
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "2XL"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "2XL")}
-            >
-              2XL
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "3XL"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "3XL")}
-            >
-              3XL
-            </div>
-            <div
-              className={`${
-                userBuy.productSize === "4XL"
-                  ? "outline outline-2 "
-                  : "outline outline-1 outline-gray-300"
-              }  border-black px-5 py-3 rounded-2xl  cursor-pointer`}
-              onClick={() => orderHandler("productSize", "4XL")}
-            >
-              4XL
-            </div>
-          </div>
 
-          <div className="flex space-x-4 mt-8">
-            <div
-              className="px-6 py-4 bg-purple-500 text-white font-semibold font-Inter w-[300px] text-center rounded-2xl text-[14px] cursor-pointer"
-              onClick={bagHandler}
-            >
-              {bag ? <span>Remove from Bag</span> : <span>Add to Bag</span>}
-            </div>
-            <div className="relative ">
-              {" "}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
               <div
-                className="px-6 py-4 text-white font-semibold font-Inter w-[300px] text-center rounded-2xl text-sm cursor-pointer"
-                style={{ backgroundColor: "#60BB47" }}
+                className="productInfo-orderbtn px-6 py-4 bg-purple-500 text-white font-semibold font-Inter text-center rounded-2xl text-[14px] cursor-pointer"
+                onClick={bagHandler}
               >
-                Buy with <span className="text-md">Esewa</span>
+                {bag ? <span>Remove from Bag</span> : <span>Add to Bag</span>}
               </div>
-              {/* <img
+              <div className="relative ">
+                {" "}
+                <div
+                  className="productInfo-orderbtn px-6 py-4 text-white font-semibold font-Inter text-center rounded-2xl text-sm cursor-pointer"
+                  style={{ backgroundColor: "#60BB47" }}
+                >
+                  Buy with <span className="text-md">Esewa</span>
+                </div>
+                {/* <img
                 className="absolute h-10 w-10 top-1 right-[80px]"
                 src={Esewa}
               /> */}
+              </div>
             </div>
-          </div>
-          <div className=" border-t-[1px] mt-6 w-[100%]"></div>
-          <div className="w-[600px] text-Inter mt-5">
-            <div className="font-Inter font-semibold ">
-              Things to know about the product
-            </div>
-            {aboutProduct}
-          </div>
-
-          <div className="mt-4 space-y-2">
-            {(productInfo.productFeature?.fastShip ||
-              productInfo.productFeature?.freeReturn ||
-              productInfo.productFeature?.ecoFriendly ||
-              productInfo.productFeature?.perfectGift) && (
+            <div className=" border-t-[1px] mt-6 w-[100%]"></div>
+            <div className=" text-Inter mt-5 ">
               <div className="font-Inter font-semibold ">
-                Feature provide through product
+                Things to know about the product
               </div>
-            )}
+              {aboutProduct}
+            </div>
 
-            {productInfo.productFeature?.fastShip && (
-              <div className=" flex space-x-2 items-center ">
-                <GrDeliver className="h-6 w-6 ml-1" />
-                <span className="font-Inter text-sm opacity-80">
-                  Fast shipping
-                </span>
-              </div>
-            )}
-            {productInfo.productFeature?.freeReturn && (
-              <div className=" flex space-x-2 items-center">
-                <PiKeyReturnDuotone className="h-7 w-7" />
-                <span className="font-Inter text-sm opacity-80">
-                  Free returns{" "}
-                </span>
-              </div>
-            )}
-            {productInfo.productFeature?.ecoFriendly && (
-              <div className=" flex space-x-2 items-center">
-                <IoLeafOutline className="h-7 w-7" />
-                <span className="font-Inter text-sm opacity-80">
-                  Eco-friendly{" "}
-                </span>
-              </div>
-            )}
-            {productInfo.productFeature?.perfectGift && (
-              <div className=" flex space-x-2 items-center">
-                <TbGift className="h-7 w-7" />
-                <span className="font-Inter text-sm opacity-80">
-                  Perfect to gift
-                </span>
-              </div>
-            )}
-          </div>
-          <div className=" border-t-[1px] my-4 w-[100%]"></div>
-          {/* comments */}
-          <div className="">
-            <div className="font-Inter font-semibold mb-1">Comment</div>
-            <div>No comments yet</div>
+            <div className="mt-4 space-y-2 ">
+              {(productInfo.productFeature?.fastShip ||
+                productInfo.productFeature?.freeReturn ||
+                productInfo.productFeature?.ecoFriendly ||
+                productInfo.productFeature?.perfectGift) && (
+                <div className="font-Inter font-semibold ">
+                  Feature provide through product
+                </div>
+              )}
+
+              {productInfo.productFeature?.fastShip && (
+                <div className=" flex space-x-2 items-center ">
+                  <GrDeliver className="h-6 w-6 ml-1" />
+                  <span className="font-Inter text-sm opacity-80">
+                    Fast shipping
+                  </span>
+                </div>
+              )}
+              {productInfo.productFeature?.freeReturn && (
+                <div className=" flex space-x-2 items-center">
+                  <PiKeyReturnDuotone className="h-7 w-7" />
+                  <span className="font-Inter text-sm opacity-80">
+                    Free returns{" "}
+                  </span>
+                </div>
+              )}
+              {productInfo.productFeature?.ecoFriendly && (
+                <div className=" flex space-x-2 items-center">
+                  <IoLeafOutline className="h-7 w-7" />
+                  <span className="font-Inter text-sm opacity-80">
+                    Eco-friendly{" "}
+                  </span>
+                </div>
+              )}
+              {productInfo.productFeature?.perfectGift && (
+                <div className=" flex space-x-2 items-center">
+                  <TbGift className="h-7 w-7" />
+                  <span className="font-Inter text-sm opacity-80">
+                    Perfect to gift
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className=" border-t-[1px] my-4 w-[100%]"></div>
+            {/* comments */}
+            <div className="">
+              <div className="font-Inter font-semibold mb-1">Comment</div>
+              <div>No comments yet</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
