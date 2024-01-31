@@ -111,7 +111,7 @@ const QuickBag = (props) => {
             <div className="text-2xl  font-Sans font-extrabold italic uppercase">
               your Orders
             </div>
-            <div className="ProductInfo--description h-[560px] gap-5 justify-center items-start flex flex-wrap overflow-y-scroll my-4 pb-[60px] w-[100%] border border-black p-2 rounded-xl border-opacity-20">
+            <div className="quickbag--orderInfo h-[560px] gap-5 justify-center items-start flex flex-wrap overflow-y-scroll my-4 pb-[60px] w-[100%] border border-black p-2 rounded-xl border-opacity-20">
               {order}
             </div>
           </>
