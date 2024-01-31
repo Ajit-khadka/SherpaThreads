@@ -79,7 +79,7 @@ const Favorites = (props) => {
           Login to see your favorites
         </div>
       ) : (
-        <div className="ProductInfo--description flex h-[42vh] gap-5 px-2 flex-wrap overflow-y-scroll my-4 w-[100%] border border-black rounded-xl p-2 border-opacity-20">
+        <div className="fav--favorites flex h-[42vh] gap-5 px-2 flex-wrap overflow-y-scroll my-4 w-[100%] border border-black rounded-xl p-2 border-opacity-20">
           {favorite}
         </div>
       )}

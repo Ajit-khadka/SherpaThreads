@@ -146,10 +146,7 @@ const ProductInfo = () => {
   return (
     <>
       <SecondaryHeader />
-      <div
-        className="productInfo-main"
-        key={productInfo._id}
-      >
+      <div className="productInfo-main" key={productInfo._id}>
         <div className="productInfo-container ">
           <div className="productInfo-Img overflow-hidden flex justify-center items-center rounded-md ">
             <LazyLoadImage
