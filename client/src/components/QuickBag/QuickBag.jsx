@@ -52,7 +52,7 @@ const QuickBag = (props) => {
         <div className="quickbag-orderImgContainer rounded-md overflow-hidden relative   shadow-md">
           <img
             className="quickbag-orderImg object-cover h-[200px] "
-            src="/images/festival.jpg"
+            src="/images/modelfont.jpg"
           />
           <div className="w-[300px] font-Nunito py-2 ml-4">
             <div className="text uppercase font-Sans font-extrabold italic">

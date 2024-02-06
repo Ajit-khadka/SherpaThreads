@@ -11,7 +11,11 @@ export default {
         Roboto:['Roboto Mono', 'monospace'],
         Inter:['Inter', 'sans-serif'],
         Nunito:['Nunito', 'sans-serif']
+      },
+      screens:{
+        'showbar': '1320px',
       }
+
     },
   },
   plugins: [],
