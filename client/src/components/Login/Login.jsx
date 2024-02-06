@@ -42,7 +42,7 @@ const Login = (props) => {
 
   return (
     <div
-      className="h-[100%] w-[100%] fixed bg-black bg-opacity-40 z-20 top-0 left-0 "
+      className="h-[100%] w-[100%] fixed bg-black bg-opacity-40 z-20 top-0 left-0"
       onClick={props.close}
     >
       <div

@@ -9,6 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import InfoModal from "../components/ExtraInfo/InfoModal";
 
 const Home = () => {
   const [floatIcon, setFloatIcon] = useState(false);
@@ -73,6 +74,7 @@ const Home = () => {
       <Popular />
       <OtherProducts />
       <Slogan />
+      <InfoModal />
       <Footer />
       {floatIcon && (
         <div

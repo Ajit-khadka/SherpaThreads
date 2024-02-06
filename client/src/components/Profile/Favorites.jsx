@@ -49,7 +49,7 @@ const Favorites = (props) => {
         <div className="h-[150px] w-[100px] rounded-md overflow-hidden relative">
           <img
             className="object-cover  h-[150px] "
-            src="/images/festival.jpg"
+            src="/images/modelfont.jpg"
           />
 
           <div

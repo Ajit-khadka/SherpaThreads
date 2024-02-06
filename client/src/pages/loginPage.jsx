@@ -1,6 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import Favorites from "../components/Profile/Favorites";
-
+import InfoModal from "../components/ExtraInfo/InfoModal";
 const Login = () => {
   //returning null to Header
   // console.log(props.userData);
@@ -13,6 +13,7 @@ const Login = () => {
 
   return (
     <div className="h-[100%] w-[100%] fixed bg-black bg-opacity-40 z-20 top-0 left-0 ">
+      <InfoModal />
       <img
         className="h-[100vh] w-[100vw] object-cover"
         src="/images/backLoginImage.png"
@@ -24,7 +25,10 @@ const Login = () => {
         }}
       >
         <div className="w-[100%] flex justify-between items-center">
-          <div className="text-xl font-inter font-bold "> Welcome to SherpaThreads</div>
+          <div className="text-xl font-inter font-bold ">
+            {" "}
+            Welcome to SherpaThreads
+          </div>
         </div>
 
         <div>
